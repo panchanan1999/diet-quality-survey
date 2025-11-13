@@ -6,271 +6,1464 @@
   <title>Daily Diet Quality Assessment | Chandana M S</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700;800&display=swap" rel="stylesheet"/>
   <style>
-    html, body { height: 100%; }
+    :root {
+      --primary: #f7797d;
+      --secondary: #FBD786;
+      --accent: #C6FFDD;
+      --text-primary: #1a1a2e;
+      --text-secondary: #3a3a48;
+      --border-glow: rgba(247, 121, 125, 0.4);
+      --shadow-soft: rgba(247, 121, 125, 0.1);
+      --transition: all 0.4s cubic-bezier(0.17, 0.55, 0.55, 0.86);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body { 
+      height: 100%; 
+      overflow-x: hidden;
+    }
+
     body {
-      font-family: 'Montserrat', Arial, sans-serif;
-      background: linear-gradient(135deg, #f7797d 0%, #FBD786 60%, #C6FFDD 100%);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 60%, var(--accent) 100%);
       min-height: 100vh;
       overflow-x: hidden;
-      animation: gradientMove 12s linear infinite alternate;
+      position: relative;
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
     }
-    @keyframes gradientMove { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
-    .bubbles {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      pointer-events: none; z-index: 0; overflow: hidden;
+
+    @keyframes gradientFlow {
+      0%, 100% { background-position: 0% 0%; }
+      25% { background-position: 100% 100%; }
+      50% { background-position: 100% 0%; }
+      75% { background-position: 0% 100%; }
     }
-    .bubble {
-      position: absolute;margin:0 auto; background: rgba(255,255,255,0.18); border-radius: 50%; filter: blur(2px);
-      animation: float 10s linear infinite;
+
+    /* ✨ Magical Particle System */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
     }
-    .bubble:nth-child(1) { width: 110px; height: 110px; left:10vw; top:76vh; }
-    .bubble:nth-child(2) { width: 55px; height: 55px; left:74vw; top:73vh; animation-duration:7s;}
-    .bubble:nth-child(3) { width: 80px; height: 80px; left:40vw; top:7vh; animation-duration:12s;}
-    .bubble:nth-child(4) { width: 35px; height: 35px; left:60vw; top:22vh; animation-duration:10s;}
-    .bubble:nth-child(5) { width: 145px; height: 145px; left:89vw; top:50vh; animation-duration:13s;}
-    @keyframes float {
-      0% { transform: translateY(0) scale(1); opacity: 0.8;}
-      30% { transform: translateY(-40px) scale(1.08);}
-      50% { opacity: 1; }
-      70% { transform: translateY(30px) scale(1.07);}
-      100% { transform: translateY(0) scale(1); opacity: 0.7;}
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.1));
+      filter: blur(1px);
+      animation: floatGentle 8s ease-in-out infinite;
     }
+
+    .particle:nth-child(odd) { animation-direction: reverse; }
+    .particle:nth-child(3n) { animation-duration: 12s; }
+    .particle:nth-child(4n) { animation-duration: 6s; }
+
+    @keyframes floatGentle {
+      0%, 100% { 
+        transform: translateY(0) rotate(0deg); 
+        opacity: 0; 
+      }
+      10%, 90% { 
+        opacity: 0.8; 
+      }
+      50% { 
+        transform: translateY(-20px) rotate(180deg); 
+        opacity: 1; 
+      }
+    }
+
+    /* 🌟 Liquid Morphing Background */
+    .liquid-bg {
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse 80% 40% at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: liquidMorph 20s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    @keyframes liquidMorph {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      33% { transform: rotate(120deg) scale(1.1); }
+      66% { transform: rotate(240deg) scale(0.9); }
+    }
+
     .container {
-      max-width: 530px;
-      margin: 58px auto 0 auto;
-      background: rgba(255,255,255,0.16);
-      box-shadow: 0 22px 48px 0 rgba(103,63,197,0.15), 0 2px 8px 0 rgba(103,63,197,0.25);
-      border-radius: 26px; backdrop-filter: blur(17px); padding: 0; position: relative; z-index: 1; overflow: hidden;
-      animation: fadeIn 1.2s cubic-bezier(.37,1.53,.81,-0.21) 0.1s both;
+      max-width: 580px;
+      margin: 40px auto 20px auto;
+      position: relative;
+      z-index: 10;
+      animation: containerEntrance 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
     }
-    @keyframes fadeIn { from {opacity: 0; transform: translateY(40px);} to {opacity: 1; transform: translateY(0);} }
+
+    @keyframes containerEntrance {
+      0% { 
+        opacity: 0; 
+        transform: translateY(50px) scale(0.95); 
+        filter: blur(10px);
+      }
+      50% { 
+        transform: translateY(-10px) scale(1.02); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+        filter: blur(0);
+      }
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 32px;
+      box-shadow: 
+        0 20px 40px rgba(103, 63, 197, 0.1),
+        0 8px 16px rgba(103, 63, 197, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      overflow: hidden;
+      position: relative;
+      animation: cardFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+      animation: gradientSlide 3s ease-in-out infinite;
+    }
+
+    @keyframes gradientSlide {
+      0%, 100% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+    }
+
     .header {
-      background: linear-gradient(90deg, #f7797d 0%, #FBD786 60%, #C6FFDD 100%);
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      background-size: 300% 300%;
+      animation: headerGlow 4s ease-in-out infinite;
       color: #fff;
-      padding: 33px 0 23px 0; text-align: center;
-      border-radius: 26px 26px 0 0; box-shadow: 0 4px 20px rgba(101,126,234,0.12);
-      animation: headerDrop 1s cubic-bezier(.48,.93,.65,1.2) .2s both;
+      padding: 40px 30px 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-    @keyframes headerDrop { from {opacity: 0; transform: translateY(-40px);} to {opacity: 1; transform: translateY(0);} }
+
+    @keyframes headerGlow {
+      0%, 100% { background-position: 0% 0%; }
+      50% { background-position: 100% 100%; }
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
     .header h1 {
-      font-size: 2rem; margin-bottom: 7px; font-weight: 700; letter-spacing: 1px;
-      animation: pulse 1.6s infinite alternate;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -1px;
+      position: relative;
+      z-index: 2;
+      text-shadow: 0 0 20px rgba(255,255,255,0.5);
+      animation: textGlow 2.5s ease-in-out infinite alternate;
     }
-    @keyframes pulse { 0% { text-shadow: 0 0 7px #f7797d; } 100% { text-shadow: 0 0 13px #FBD786; } }
-    .header p { font-size: 1.04rem; color: #ffe2ea; opacity: 0.96; }
+
+    @keyframes textGlow {
+      0%, 100% { 
+        text-shadow: 0 0 10px rgba(255,255,255,0.8);
+        transform: scale(1);
+      }
+      50% { 
+        text-shadow: 0 0 30px rgba(255,255,255,0.9), 0 0 40px var(--primary);
+        transform: scale(1.02);
+      }
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      font-weight: 300;
+      position: relative;
+      z-index: 2;
+    }
+
     .researcher {
-      background: rgba(255,255,255,0.14); padding: 17px 0;
-      text-align: center; border-bottom: 0.5px solid #fcdbfa; border-top: 0.5px solid #fcdbfa;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 22px 30px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      z-index: 2;
     }
+
+    .researcher::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(247, 121, 125, 0.05) 20%, 
+        transparent 50%, 
+        rgba(247, 121, 125, 0.05) 80%, 
+        transparent 100%
+      );
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+    }
+
     .researcher h2 {
-      font-size: 1.16rem; color: #ed648d; font-weight: 600; letter-spacing: 1px; margin-bottom: 2px;
+      font-size: 1.3rem;
+      color: var(--primary);
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+      animation: nameFloat 2s ease-in-out infinite;
     }
+
+    @keyframes nameFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-3px); }
+    }
+
     .researcher p {
-      color: #FFB6B9; font-style: italic; font-size: .97rem; opacity: 0.95;
+      color: var(--primary);
+      font-style: italic;
+      font-size: 1rem;
+      opacity: 0.8;
     }
-    .content { padding: 30px 24px; animation: fadeSlide 1.1s cubic-bezier(.17,.67,.77,1.12);}
-    @keyframes fadeSlide { from {opacity: 0; transform: translateX(-30px);} to {opacity: 1; transform: translateX(0);} }
-    .question {
-      margin-bottom: 28px; padding: 20px 15px; background: rgba(255,255,255,0.20);
-      border-radius: 12px; box-shadow: 0 2px 6px rgba(255,179,185,0.11);
-      animation: fadeIn 0.7s cubic-bezier(.34,1.18,.51,-0.27) both; transition: background 0.2s;
+
+    .content {
+      padding: 40px 35px;
+      position: relative;
+      z-index: 2;
     }
-    .question h3 { color: #ed648d; font-weight: 600; font-size: 1.12rem; letter-spacing: 0.8px; margin-bottom: 14px; }
-    .options { display: grid; gap: 12px;}
-    .option {
-      padding: 12px 16px; background: rgba(255,255,255,0.96);
-      border: 1.2px solid #fea1a1; border-radius: 8px; cursor: pointer;
-      font-weight: 500; color: #ed648d; transition: all 0.24s cubic-bezier(.57,.32,.97,.77); font-size: 1.09rem;
-      display: flex; align-items: center; box-shadow: 0 1px 4px rgba(255,182,185,0.09); position: relative;
+
+    .step-indicator {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+      gap: 8px;
     }
-    .option:hover, .option input:checked + span {
-      border-color: #f7797d;
-      background: linear-gradient(90deg, #f8fafc 80%, #ffece7 100%);
-      box-shadow: 0 2px 12px rgba(247,121,125,0.06);
-      transform: scale(1.02);
+
+    .step-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(247, 121, 125, 0.3);
+      border: 2px solid rgba(247, 121, 125, 0.5);
+      position: relative;
+      transition: var(--transition);
+      cursor: pointer;
     }
-    .option input[type="checkbox"], .option input[type="radio"] {
-      accent-color: #f7797d;
-      margin-right: 11px;
-      transform: scale(1.17); cursor:pointer; transition: box-shadow 0.24s;
+
+    .step-dot.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      animation: pulseDot 2s ease-in-out infinite;
+      box-shadow: 0 0 15px var(--primary);
     }
-    .form-group { margin-bottom: 19px;}
+
+    @keyframes pulseDot {
+      0%, 100% { 
+        transform: scale(1);
+        box-shadow: 0 0 10px var(--primary);
+      }
+      50% { 
+        transform: scale(1.2);
+        box-shadow: 0 0 20px var(--primary);
+      }
+    }
+
+    .page-transition {
+      position: relative;
+      min-height: 500px;
+    }
+
+    .page {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .page.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Slide transitions */
+    .page.slide-out-left {
+      animation: slideOutLeft 0.4s ease-out;
+    }
+
+    .page.slide-in-right {
+      animation: slideInRight 0.4s ease-out;
+    }
+
+    @keyframes slideOutLeft {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(-50px); opacity: 0; }
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(50px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* Question styling */
+    .question-container {
+      animation: formSlideIn 0.6s ease-out;
+    }
+
+    @keyframes formSlideIn {
+      from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+
+    .question-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 15px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .question-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+
+    .question-subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 25px;
+      font-style: italic;
+      opacity: 0.8;
+    }
+
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      padding: 15px;
+      border: 2px solid rgba(247, 121, 125, 0.2);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(5px);
+      transition: var(--transition);
+      animation: checkboxFloat 0.5s ease-out;
+    }
+
+    @keyframes checkboxFloat {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .checkbox-item:nth-child(2n) { animation-delay: 0.1s; }
+    .checkbox-item:nth-child(3n) { animation-delay: 0.2s; }
+    .checkbox-item:nth-child(4n) { animation-delay: 0.3s; }
+
+    .checkbox-item:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 8px 25px rgba(247, 121, 125, 0.2);
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      display: none;
+    }
+
+    .checkmark {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(247, 121, 125, 0.4);
+      border-radius: 6px;
+      margin-right: 12px;
+      position: relative;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .checkbox-item input[type="checkbox"]:checked + .checkmark {
+      background: var(--primary);
+      border-color: var(--primary);
+      animation: checkmarkPop 0.3s ease-out;
+    }
+
+    @keyframes checkmarkPop {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
+    }
+
+    .checkbox-item input[type="checkbox"]:checked + .checkmark:after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 1px;
+      width: 4px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      animation: checkmarkDraw 0.3s ease-out;
+    }
+
+    @keyframes checkmarkDraw {
+      from { height: 0; opacity: 0; }
+      to { height: 8px; opacity: 1; }
+    }
+
+    .checkbox-label {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: var(--transition);
+    }
+
+    .checkbox-item:hover .checkbox-label {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+      animation: formSlideIn 0.6s ease-out;
+    }
+
+    .form-group:nth-child(1) { animation-delay: 0.1s; }
+    .form-group:nth-child(2) { animation-delay: 0.2s; }
+    .form-group:nth-child(3) { animation-delay: 0.3s; }
+
     .form-group label {
-      display: block; margin-bottom: 7px; font-weight: bold; color: #ed648d;
-      font-size: 1.05rem; letter-spacing: 0.7px;
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+      position: relative;
+      transition: var(--transition);
     }
-    .form-group input {
-      width: 100%; padding: 11px 11px;
-      border: 1.3px solid #fea1a1; border-radius: 7px; font-size: 1.02rem;
-      background: rgba(255,255,255,0.82); transition: border 0.2s;
+
+    .form-group label::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.3s ease;
     }
-    .form-group input:focus {
-      border-color: #f7797d; outline: none; background: #f7f5fc;
+
+    .form-group:hover label::after {
+      width: 100%;
     }
-    .camera-group { margin-bottom: 23px; text-align: center; }
+
+    .form-input {
+      width: 100%;
+      padding: 16px 20px;
+      border: 2px solid rgba(247, 121, 125, 0.2);
+      border-radius: 16px;
+      font-size: 1.05rem;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-input::placeholder {
+      color: rgba(247, 121, 125, 0.4);
+      font-weight: 300;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: rgba(255, 255, 255, 0.95);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(247, 121, 125, 0.2);
+    }
+
+    .form-input:focus::placeholder {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .camera-group {
+      margin-bottom: 25px;
+      text-align: center;
+      animation: cameraFloat 0.8s ease-out 0.4s both;
+    }
+
+    @keyframes cameraFloat {
+      from { 
+        opacity: 0; 
+        transform: translateY(30px) rotateX(-90deg); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0) rotateX(0deg); 
+      }
+    }
+
     #camera-container {
-      background: rgba(255,231,232,0.55); border-radius: 12px; padding: 10px 0;
-      margin-bottom: 10px; box-shadow: 0 2px 24px rgba(247,121,125,0.05);
-      display: flex; flex-direction: column; align-items: center;
-      min-height: 176px;
+      background: linear-gradient(135deg, rgba(255, 231, 232, 0.6), rgba(255, 240, 244, 0.4));
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 
+        inset 0 2px 4px rgba(255, 255, 255, 0.2),
+        0 8px 25px rgba(247, 121, 125, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 200px;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
     }
+
+    #camera-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(247, 121, 125, 0.1) 0%, transparent 70%);
+      animation: cameraGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes cameraGlow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+    }
+
+    #camera-container.active {
+      background: linear-gradient(135deg, rgba(255, 245, 250, 0.8), rgba(255, 250, 255, 0.6));
+      box-shadow: 
+        0 0 30px rgba(247, 121, 125, 0.3),
+        inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    }
+
     video {
-      border-radius: 10px; width: 92%; max-width: 330px;
-      box-shadow: 0 3px 18px rgba(255,182,185,.12);
-      margin: 9px 0;
-      background: #fff9fa;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 350px;
+      box-shadow: 0 8px 25px rgba(255, 182, 185, 0.15);
+      margin: 15px 0;
+      background: #fff;
       aspect-ratio: 4/3;
+      border: 2px solid rgba(247, 121, 125, 0.2);
+      transition: var(--transition);
+      transform: scale(1);
     }
+
+    video:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 35px rgba(255, 182, 125, 0.2);
+    }
+
     .btn {
-      padding: 13px 35px; border: none; border-radius: 9px; font-size: 1.12rem;
-      font-weight: 700; cursor: pointer; margin: 0 6px; background: linear-gradient(94deg, #f7797d 6%, #FBD786 94%);
-      color: #fff; box-shadow: 0 2px 12px rgba(247,121,125,0.07);
-      letter-spacing: 1px; position:relative; overflow:hidden; transition: all .25s cubic-bezier(.57,.32,.97,.77);
+      padding: 16px 40px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin: 8px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      box-shadow: 
+        0 8px 25px rgba(247, 121, 125, 0.3),
+        0 4px 8px rgba(247, 121, 125, 0.2);
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+      transform: translateY(0);
     }
-    .btn:active { transform: scale(0.96);}
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 
+        0 12px 35px rgba(247, 121, 125, 0.4),
+        0 6px 12px rgba(247, 121, 125, 0.3);
+    }
+
+    .btn:active {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(247, 121, 125, 0.3);
+    }
+
+    .btn-primary {
+      animation: btnPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes btnPulse {
+      0%, 100% { 
+        transform: translateY(0) scale(1);
+        box-shadow: 0 8px 25px rgba(247, 121, 125, 0.3);
+      }
+      50% { 
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 12px 35px rgba(247, 121, 125, 0.4);
+      }
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      animation: btnFloat 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes btnFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-2px); }
+    }
+
     .nav {
-      padding: 19px 24px; border-top: 0.5px solid #ffdada;
-      display: flex; justify-content: flex-end; z-index: 2;
-      background: rgba(255,255,255,0.07); border-radius: 0 0 17px 17px;
+      padding: 30px 35px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: center;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
     }
-    .hidden { display: none; }
-    #results { text-align: center; padding: 34px 0; animation: fadeIn 1s both;}
+
+    .hidden { 
+      display: none; 
+    }
+
+    #results {
+      text-align: center;
+      padding: 50px 30px;
+      animation: resultsPopIn 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
+      position: relative;
+    }
+
+    @keyframes resultsPopIn {
+      0% { 
+        opacity: 0; 
+        transform: scale(0.8) rotateX(-90deg); 
+        filter: blur(10px);
+      }
+      50% { 
+        transform: scale(1.05) rotateX(10deg); 
+        filter: blur(2px);
+      }
+      100% { 
+        opacity: 1; 
+        transform: scale(1) rotateX(0deg); 
+        filter: blur(0);
+      }
+    }
+
     #results .checkmark {
-      font-size: 66px; color: #41c776; margin-bottom: 22px;
-      animation: pop 0.8s; display: block;
+      font-size: 80px;
+      color: #41c776;
+      margin-bottom: 25px;
+      animation: checkmarkBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      display: block;
+      text-shadow: 0 0 20px rgba(65, 199, 118, 0.5);
     }
-    @keyframes pop { 0% { transform: scale(0.4); opacity: 0; } 80% { transform: scale(1.2); opacity: 0.8;} 100% { transform: scale(1); opacity: 1; }}
-    #results h2 { font-size: 2rem; font-weight: 700; color: #ed648d;}
-    #results p { margin-top: 14px; font-size: 1.13rem; color: #fec6c6; font-weight: 600;}
-    #score { font-size: 1.23em; color: #ed648d; font-weight: bold; margin-left: 6px;}
-    @media (max-width:600px){
-      .container {margin-top:15px;}
-      .content {padding:12px 4px;}
-      .header {padding:13px 0 8px;}
-      .nav {padding:9px 10px;}
+
+    @keyframes checkmarkBounce {
+      0% { 
+        transform: scale(0) rotate(-180deg); 
+        opacity: 0; 
+      }
+      50% { 
+        transform: scale(1.2) rotate(10deg); 
+        opacity: 0.8; 
+      }
+      100% { 
+        transform: scale(1) rotate(0deg); 
+        opacity: 1; 
+      }
     }
-    /* Animated camera capture button */
-    #captureBtn {
-      animation: bounce 1.3s infinite alternate;
-      background: linear-gradient(92deg, #FBD786 32%, #f7797d 85%);
+
+    #results h2 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 15px;
+      animation: titleGlow 1.5s ease-in-out infinite alternate;
     }
-    @keyframes bounce {
-      0% { box-shadow:0 2px 16px #FBD78644;}
-      100% { box-shadow:0 4px 32px #f7797d44;}
+
+    @keyframes titleGlow {
+      0%, 100% { 
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+      }
+      50% { 
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+      }
     }
-    #preview-img {
-      border-radius:12px;
-      box-shadow: 0 2px 18px #f7797d33;
-      margin: 12px auto 0 auto; display:block; width: 92%; max-width:320px;
-      background:#fff8fa; aspect-ratio:4/3;
+
+    #results p {
+      margin-top: 15px;
+      font-size: 1.15rem;
+      color: var(--primary);
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    .result-details {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 25px 0;
+      border: 1px solid rgba(247, 121, 125, 0.2);
+      animation: detailsSlideUp 0.8s ease-out 0.2s both;
+      backdrop-filter: blur(10px);
+    }
+
+    @keyframes detailsSlideUp {
+      from { 
+        opacity: 0; 
+        transform: translateY(30px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+
+    #preview-img, #final-img {
+      border-radius: 16px;
+      box-shadow: 0 12px 35px rgba(247, 121, 125, 0.2);
+      margin: 20px auto;
+      display: block;
+      width: 100%;
+      max-width: 350px;
+      background: #fff;
+      animation: photoGlow 1s ease-in-out;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+    }
+
+    @keyframes photoGlow {
+      0% { 
+        opacity: 0; 
+        transform: scale(0.8) rotateY(-180deg); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: scale(1) rotateY(0deg); 
+      }
+    }
+
+    /* Responsive Design with Animations */
+    @media (max-width: 768px) {
+      .container {
+        margin-top: 20px;
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+
+      .content {
+        padding: 30px 20px;
+      }
+
+      .header {
+        padding: 30px 20px 20px;
+      }
+
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .nav {
+        padding: 20px 15px;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .checkbox-group {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Micro-interactions */
+    .input-focus::placeholder {
+      animation: placeholderFloat 0.6s ease-out;
+    }
+
+    @keyframes placeholderFloat {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-10px); opacity: 0; }
+    }
+
+    /* Loading animations */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Success animation */
+    .success-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 30;
+    }
+
+    .success-particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+      border-radius: 50%;
+      animation: particleBurst 3s ease-out;
+    }
+
+    @keyframes particleBurst {
+      0% { 
+        opacity: 1; 
+        transform: scale(0) translateY(0); 
+      }
+      50% { 
+        opacity: 0.8; 
+        transform: scale(1) translateY(-100px) rotate(180deg); 
+      }
+      100% { 
+        opacity: 0; 
+        transform: scale(0) translateY(-200px) rotate(360deg); 
+      }
     }
   </style>
 </head>
 <body>
-  <div class="bubbles">
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-  </div>
+  <!-- ✨ Magical Particle Background -->
+  <div class="particles" id="particles"></div>
+  
+  <!-- 🌟 Liquid Morphing Background -->
+  <div class="liquid-bg"></div>
+  
   <div class="container">
-    <div class="header">
-      <h1>🥗 Daily Diet Quality Assessment</h1>
-      <p>Complete your details and submit your image</p>
-    </div>
-    <div class="researcher">
-      <h2>Chandana M S</h2>
-      <p>Dietitian & PhD Scholar</p>
-    </div>
-    <div class="content" id="form-content">
-      <div class="form-group">
-        <label>Full Name *</label>
-        <input type="text" id="name" placeholder="Enter your name" required />
+    <div class="card">
+      <div class="header">
+        <h1>🥗 Daily Diet Quality Assessment</h1>
+        <p>Complete your details and submit your image</p>
       </div>
-      <div class="form-group">
-        <label>Phone Number *</label>
-        <input type="tel" id="phone" placeholder="Enter your phone" required />
+      
+      <div class="researcher">
+        <h2>Chandana M S</h2>
+        <p>Dietitian & PhD Scholar</p>
       </div>
-      <div class="camera-group">
-        <label style="font-weight:600;color:#ed648d;">Live Photo Capture *</label>
-        <div id="camera-container">
-          <video id="video" autoplay playsinline></video>
-          <button type="button" id="captureBtn" class="btn" onclick="capture()">📷 Capture</button>
+      
+      <div class="content">
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+          <div class="step-dot active" data-step="1"></div>
+          <div class="step-dot" data-step="2"></div>
         </div>
-        <img id="preview-img" class="hidden" alt="preview"/>
+
+        <!-- Multi-Page Form System -->
+        <div class="page-transition">
+          <!-- Page 1: Diet Questions -->
+          <div class="page active" id="page1">
+            <!-- Food Groups Question -->
+            <div class="question-container">
+              <h3 class="question-title">🍎 Food Groups Consumed</h3>
+              <p class="question-subtitle">Which of these food groups did you consume in the past day? (Select all that apply)</p>
+              <div class="checkbox-group">
+                <label class="checkbox-item">
+                  <input type="checkbox" name="foodGroups" value="Meat/Poultry/Fish/Egg">
+                  <span class="checkmark"></span>
+                  <span class="checkbox-label">Meat/Poultry/Fish/Egg</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="foodGroups" value="Dairy/Beans">
+                  <span class="checkmark"></span>
+                  <span class="checkbox-label">Dairy/Beans</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="foodGroups" value="Grains">
+                  <span class="checkmark"></span>
+                  <span class="checkbox-label">Grains</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="foodGroups" value="Fruits">
+                  <span class="checkmark"></span>
+                  <span class="checkbox-label">Fruits</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="foodGroups" value="Vegetables">
+                  <span class="checkmark"></span>
+                  <span class="checkbox-label">Vegetables</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Protein Sources Question -->
+            <div class="question-container">
+              <h3 class="question-title">💪 Protein Sources</h3>
+              <p class="question-subtitle">Which of these protein sources did you consume in the past day? (Select all that apply)</p>
+              <div class="checkbox-group">
+                <label class="checkbox-item">
+                  <input type="checkbox" name="proteinSources" value="Meat">
+                  <span class="checkmark"></span>
+                  <span class="checkbox-label">Meat</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="proteinSources" value="Poultry">
+                  <span class="checkmark"></span>
+                  <span class="checkbox-label">Poultry</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="proteinSources" value="Fish">
+                  <span class="checkmark"></span>
+                  <span class="checkbox-label">Fish</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="proteinSources" value="Dairy">
+                  <span class="checkmark"></span>
+                  <span class="checkbox-label">Dairy</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="proteinSources" value="Beans">
+                  <span class="checkmark"></span>
+                  <span class="checkbox-label">Beans</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="proteinSources" value="Eggs">
+                  <span class="checkmark"></span>
+                  <span class="checkbox-label">Eggs</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Page 2: Personal Info & Camera -->
+          <div class="page" id="page2">
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" class="form-input" placeholder="Enter your beautiful name" required />
+            </div>
+            
+            <div class="form-group">
+              <label for="phone">Phone Number *</label>
+              <input type="tel" id="phone" class="form-input" placeholder="Enter your phone number" required />
+            </div>
+            
+            <div class="camera-group">
+              <label style="font-weight:600;color:var(--text-primary);font-size:1.1rem;margin-bottom:15px;display:block;">✨ Live Photo Capture *</label>
+              <div id="camera-container">
+                <video id="video" autoplay playsinline style="display: none;"></video>
+                <div id="camera-placeholder" style="display: flex; align-items: center; justify-content: center; color: var(--primary); font-weight: 500;">
+                  📷 Camera loading...
+                </div>
+              </div>
+              <button class="btn btn-primary" id="captureBtn" onclick="capture()" style="animation: captureFloat 1.5s ease-in-out infinite;">
+                📸 Capture Photo
+              </button>
+              <img id="preview-img" class="hidden" alt="preview"/>
+            </div>
+          </div>
+
+          <!-- Page 3: Results -->
+          <div class="page" id="page3">
+            <div id="results">
+              <div class="success-particles" id="successParticles"></div>
+              <span class="checkmark">✓</span>
+              <h2>Congratulations! 🎉</h2>
+              <div class="result-details">
+                <p><strong>Name:</strong> <span id="result-name"></span></p>
+                <p><strong>Mobile:</strong> <span id="result-phone"></span></p>
+                <p><strong>Submission Time:</strong> <span id="result-time"></span></p>
+              </div>
+              <p>Your diet assessment has been successfully submitted!</p>
+              <p style="margin-top:20px;font-size:1rem;color:var(--text-secondary);">✨ A member of our team will contact you soon</p>
+              <img id="final-img" alt="Final captured"/>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div id="results" class="hidden">
-      <span class="checkmark">✓</span>
-      <h2>Thank You!</h2>
-      <p>Submission complete.<br/>Name: <strong id="result-name"></strong><br/>Mobile: <strong id="result-phone"></strong></p>
-      <img id="final-img" src="" alt="Submitted photo" style="max-width:240px;border-radius:12px;margin-top:14px;background:#fff8fa;"/>
-    </div>
-    <div class="nav">
-      <button class="btn" id="submitBtn" onclick="submit()">Submit</button>
+      
+      <div class="nav">
+        <button class="btn btn-secondary" id="prevBtn" onclick="prevPage()" style="display: none;">
+          ← Previous
+        </button>
+        <button class="btn btn-primary" id="nextBtn" onclick="nextPage()">
+          Next →
+        </button>
+        <button class="btn btn-primary" id="submitBtn" onclick="submit()" style="display: none;">
+          🚀 Submit
+        </button>
+      </div>
     </div>
   </div>
+
   <script>
-    // Camera handling
-    const video = document.getElementById('video');
-    const preview = document.getElementById('preview-img');
-    let capturedImage = '';
-    function startCamera() {
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video:true }).then(function(stream){
-          video.srcObject = stream;
-        }).catch(function(err){alert("Can't access camera: "+err)});
-      } else {
-        alert("Camera not supported by your browser/device.");
+    // ✨ Aarohi's Magical Animation System ✨
+    class MagicalSurvey {
+      constructor() {
+        this.currentStep = 1;
+        this.totalSteps = 3;
+        this.responses = {};
+        this.capturedImage = '';
+        this.cameraStream = null;
+        
+        this.initializeElements();
+        this.createParticles();
+        this.bindEvents();
+        this.startCamera();
+        this.animateStepIndicator();
+      }
+      
+      initializeElements() {
+        this.stepDots = document.querySelectorAll('.step-dot');
+        this.pages = document.querySelectorAll('.page');
+        this.prevBtn = document.getElementById('prevBtn');
+        this.nextBtn = document.getElementById('nextBtn');
+        this.submitBtn = document.getElementById('submitBtn');
+        this.video = document.getElementById('video');
+        this.cameraPlaceholder = document.getElementById('camera-placeholder');
+        this.captureBtn = document.getElementById('captureBtn');
+        this.preview = document.getElementById('preview-img');
+        this.cameraContainer = document.getElementById('camera-container');
+      }
+      
+      // ✨ Create Magical Particles ✨
+      createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 15; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.top = Math.random() * 100 + '%';
+          particle.style.width = Math.random() * 8 + 4 + 'px';
+          particle.style.height = particle.style.width;
+          particle.style.animationDelay = Math.random() * 5 + 's';
+          particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+          particlesContainer.appendChild(particle);
+        }
+      }
+      
+      bindEvents() {
+        // Form input animations
+        document.querySelectorAll('.form-input').forEach(input => {
+          input.addEventListener('focus', () => this.animateInputFocus(input));
+          input.addEventListener('input', () => this.handleInputChange(input));
+        });
+        
+        // Checkbox animations
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+          checkbox.addEventListener('change', () => this.handleCheckboxChange(checkbox));
+        });
+        
+        // Step indicator clicks
+        this.stepDots.forEach(dot => {
+          dot.addEventListener('click', () => {
+            const step = parseInt(dot.dataset.step);
+            if (step <= this.currentStep) {
+              this.goToStep(step);
+            }
+          });
+        });
+      }
+      
+      handleCheckboxChange(checkbox) {
+        const name = checkbox.name;
+        if (!this.responses[name]) {
+          this.responses[name] = [];
+        }
+        
+        if (checkbox.checked) {
+          this.responses[name].push(checkbox.value);
+          // Add selection animation
+          const label = checkbox.parentElement;
+          label.style.transform = 'scale(1.02)';
+          label.style.background = 'rgba(247, 121, 125, 0.1)';
+          setTimeout(() => {
+            label.style.transform = 'scale(1)';
+          }, 150);
+        } else {
+          const index = this.responses[name].indexOf(checkbox.value);
+          if (index > -1) {
+            this.responses[name].splice(index, 1);
+          }
+        }
+      }
+      
+      animateInputFocus(input) {
+        const label = input.previousElementSibling;
+        label.style.transform = 'translateY(-2px)';
+        label.style.color = 'var(--primary)';
+        input.style.borderColor = 'var(--primary)';
+        input.style.boxShadow = '0 0 15px rgba(247, 121, 125, 0.2)';
+        
+        // Remove effects after blur
+        input.addEventListener('blur', () => {
+          if (!input.value) {
+            label.style.transform = 'translateY(0)';
+            label.style.color = 'var(--text-primary)';
+          }
+          input.style.borderColor = 'rgba(247, 121, 125, 0.2)';
+          input.style.boxShadow = 'none';
+        });
+      }
+      
+      handleInputChange(input) {
+        this.responses[input.id] = input.value;
+        // Add typing animation effect
+        if (input.value.length > 0) {
+          input.style.background = 'linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8))';
+        } else {
+          input.style.background = 'rgba(255, 255, 255, 0.8)';
+        }
+      }
+      
+      async startCamera() {
+        try {
+          this.cameraStream = await navigator.mediaDevices.getUserMedia({ 
+            video: { facingMode: 'user', width: { ideal: 320 }, height: { ideal: 240 } }
+          });
+          this.video.srcObject = this.cameraStream;
+          this.cameraPlaceholder.style.display = 'none';
+          this.video.style.display = 'block';
+          this.cameraContainer.classList.add('active');
+          
+          // Add camera glow animation
+          this.cameraContainer.style.animation = 'cameraGlow 2s ease-in-out infinite';
+          
+        } catch (error) {
+          console.error('Camera access denied:', error);
+          this.cameraPlaceholder.textContent = '❌ Camera access denied';
+          this.cameraPlaceholder.style.color = 'var(--primary)';
+        }
+      }
+      
+      capture() {
+        // ✨ Capture animation ✨
+        this.cameraContainer.style.animation = 'captureEffect 0.5s ease-out';
+        
+        setTimeout(() => {
+          const canvas = document.createElement('canvas');
+          canvas.width = this.video.videoWidth || 320;
+          canvas.height = this.video.videoHeight || 240;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(this.video, 0, 0, canvas.width, canvas.height);
+          this.capturedImage = canvas.toDataURL('image/png');
+          
+          this.preview.src = this.capturedImage;
+          this.preview.classList.remove('hidden');
+          
+          // Animate the capture button
+          this.captureBtn.style.animation = 'captureSuccess 0.6s ease-out';
+          this.captureBtn.innerHTML = '✅ Photo Captured!';
+          
+          // Show success particles
+          this.showSuccessParticles();
+          
+        }, 500);
+      }
+      
+      showSuccessParticles() {
+        const container = document.getElementById('successParticles');
+        for (let i = 0; i < 20; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'success-particle';
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.top = Math.random() * 100 + '%';
+          particle.style.animationDelay = (i * 0.1) + 's';
+          container.appendChild(particle);
+          
+          // Remove after animation
+          setTimeout(() => particle.remove(), 3000);
+        }
+      }
+      
+      nextPage() {
+        if (this.currentStep < this.totalSteps) {
+          this.goToStep(this.currentStep + 1);
+        }
+      }
+      
+      prevPage() {
+        if (this.currentStep > 1) {
+          this.goToStep(this.currentStep - 1);
+        }
+      }
+      
+      goToStep(step) {
+        // Update current step
+        this.currentStep = step;
+        
+        // Animate step indicator
+        this.animateStepIndicator();
+        
+        // Animate pages
+        const currentPage = document.querySelector('.page.active');
+        const nextPage = document.getElementById(`page${step}`);
+        
+        if (currentPage && nextPage && currentPage !== nextPage) {
+          // Add slide/fade animations
+          currentPage.classList.add('slide-out-left');
+          nextPage.classList.add('slide-in-right', 'active');
+          
+          setTimeout(() => {
+            currentPage.classList.remove('active', 'slide-out-left');
+            nextPage.classList.remove('slide-in-right');
+          }, 400);
+        }
+        
+        this.updateNavigation();
+      }
+      
+      animateStepIndicator() {
+        this.stepDots.forEach((dot, index) => {
+          if (index < this.currentStep) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+      
+      updateNavigation() {
+        this.prevBtn.style.display = this.currentStep > 1 ? 'inline-flex' : 'none';
+        
+        if (this.currentStep === this.totalSteps) {
+          this.nextBtn.style.display = 'none';
+          this.submitBtn.style.display = 'inline-flex';
+        } else {
+          this.nextBtn.style.display = 'inline-flex';
+          this.submitBtn.style.display = 'none';
+        }
+      }
+      
+      submit() {
+        const name = document.getElementById('name').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        
+        if (!name || !phone) {
+          this.shakeForm();
+          alert('💖 Please fill in all required fields!');
+          return;
+        }
+        
+        if (!this.capturedImage) {
+          alert('📸 Please capture your live photo to submit!');
+          return;
+        }
+        
+        // Show loading state
+        this.submitBtn.innerHTML = '<div class="loading"></div> Processing...';
+        this.submitBtn.disabled = true;
+        
+        // Simulate API call
+        setTimeout(() => {
+          // Create submission data
+          const submissionData = {
+            name: name,
+            phone: phone,
+            image: this.capturedImage,
+            foodGroups: this.responses.foodGroups || [],
+            proteinSources: this.responses.proteinSources || [],
+            timestamp: new Date().toLocaleString(),
+            userAgent: navigator.userAgent
+          };
+          
+          console.log('✨ Survey submitted successfully!', submissionData);
+          
+          // Show success state
+          this.showResultsPage(name, phone);
+          
+        }, 2000);
+      }
+      
+      showResultsPage(name, phone) {
+        // Animate to results page
+        this.goToStep(3);
+        
+        // Update results
+        document.getElementById('result-name').textContent = name;
+        document.getElementById('result-phone').textContent = phone;
+        document.getElementById('result-time').textContent = new Date().toLocaleTimeString();
+        document.getElementById('final-img').src = this.capturedImage;
+        
+        // Show success animation
+        this.submitBtn.style.display = 'none';
+        this.nextBtn.style.display = 'none';
+        this.prevBtn.style.display = 'none';
+        
+        // Trigger confetti effect
+        this.showSuccessParticles();
+      }
+      
+      shakeForm() {
+        const formGroups = document.querySelectorAll('.form-group');
+        formGroups.forEach(group => {
+          group.style.animation = 'shake 0.5s ease-in-out';
+          setTimeout(() => {
+            group.style.animation = '';
+          }, 500);
+        });
       }
     }
+    
+    // Add global animation functions
     function capture() {
-      const canvas = document.createElement('canvas');
-      canvas.width = video.videoWidth || 320;
-      canvas.height = video.videoHeight || 240;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      capturedImage = canvas.toDataURL('image/png');
-      preview.src = capturedImage;
-      preview.classList.remove('hidden');
+      if (window.survey) {
+        window.survey.capture();
+      }
     }
+    
+    function nextPage() {
+      if (window.survey) {
+        window.survey.nextPage();
+      }
+    }
+    
+    function prevPage() {
+      if (window.survey) {
+        window.survey.prevPage();
+      }
+    }
+    
     function submit() {
-      const name = document.getElementById('name').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      if (!name || !phone) {
-        document.getElementById('name').style.borderColor = "red";
-        document.getElementById('phone').style.borderColor = "red";
-        setTimeout(()=>{document.getElementById('name').style.borderColor = "";document.getElementById('phone').style.borderColor = "";},1200)
-        alert('Please fill all fields'); return;
-      }
-      if (!capturedImage) {
-        alert('Please capture your live photo to submit!');
-        return;
-      }
-      // To send image to backend, pass 'capturedImage' as base64 string
-      fetch('https://script.google.com/macros/s/AKfycbzv_2_4k1KpqjYwu05nSf96D5KOaS7SFUzBFIObjBgMMZxYbyGMFYW8ACEZKXzXMtBXrw/exec', {
-        method: 'POST',
-        mode: 'no-cors',
-        body: JSON.stringify({name, phone, image: capturedImage})
-      });
-      // Show results
-      document.getElementById('form-content').classList.add('hidden');
-      document.getElementById('result-name').textContent = name;
-      document.getElementById('result-phone').textContent = phone;
-      document.getElementById('final-img').src = capturedImage;
-      document.getElementById('results').classList.remove('hidden');
-      document.querySelector('.nav').style.display = 'none';
-      // Stop camera (for privacy)
-      if(video.srcObject) {
-        video.srcObject.getTracks().forEach(track => track.stop());
-        video.srcObject = null;
+      if (window.survey) {
+        window.survey.submit();
       }
     }
-    // Kick-off camera on load
-    window.onload = startCamera;
+    
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      window.survey = new MagicalSurvey();
+      console.log('✨ Magical Survey loaded! Ready to amaze users! 💫');
+    });
+    
+    // Add some CSS animations
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes captureEffect {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+      }
+      
+      @keyframes captureSuccess {
+        0% { transform: scale(1); background: linear-gradient(135deg, var(--primary), var(--secondary)); }
+        50% { transform: scale(1.1); background: linear-gradient(135deg, #4CAF50, #45a049); }
+        100% { transform: scale(1); background: linear-gradient(135deg, #4CAF50, #45a049); }
+      }
+      
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+        20%, 40%, 60%, 80% { transform: translateX(10px); }
+      }
+      
+      @keyframes captureFloat {
+        0%, 100% { transform: translateY(0px) scale(1); }
+        50% { transform: translateY(-3px) scale(1.02); }
+      }
+    `;
+    document.head.appendChild(style);
   </script>
 </body>
 </html>
