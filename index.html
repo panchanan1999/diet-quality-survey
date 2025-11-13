@@ -17,6 +17,9 @@
       --border-glow: rgba(247, 121, 125, 0.4);
       --shadow-soft: rgba(247, 121, 125, 0.1);
       --transition: all 0.4s cubic-bezier(0.17, 0.55, 0.55, 0.86);
+      --success: #4CAF50;
+      --error: #f44336;
+      --warning: #ff9800;
     }
 
     * {
@@ -72,35 +75,9 @@
     .particle:nth-child(4n) { animation-duration: 6s; }
 
     @keyframes floatGentle {
-      0%, 100% { 
-        transform: translateY(0) rotate(0deg); 
-        opacity: 0; 
-      }
-      10%, 90% { 
-        opacity: 0.8; 
-      }
-      50% { 
-        transform: translateY(-20px) rotate(180deg); 
-        opacity: 1; 
-      }
-    }
-
-    /* 🌟 Liquid Morphing Background */
-    .liquid-bg {
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(ellipse 80% 40% at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
-      animation: liquidMorph 20s ease-in-out infinite;
-      z-index: 0;
-    }
-
-    @keyframes liquidMorph {
-      0%, 100% { transform: rotate(0deg) scale(1); }
-      33% { transform: rotate(120deg) scale(1.1); }
-      66% { transform: rotate(240deg) scale(0.9); }
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10%, 90% { opacity: 0.8; }
+      50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
     }
 
     .container {
@@ -108,23 +85,6 @@
       margin: 40px auto 20px auto;
       position: relative;
       z-index: 10;
-      animation: containerEntrance 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
-    }
-
-    @keyframes containerEntrance {
-      0% { 
-        opacity: 0; 
-        transform: translateY(50px) scale(0.95); 
-        filter: blur(10px);
-      }
-      50% { 
-        transform: translateY(-10px) scale(1.02); 
-      }
-      100% { 
-        opacity: 1; 
-        transform: translateY(0) scale(1); 
-        filter: blur(0);
-      }
     }
 
     .card {
@@ -132,40 +92,13 @@
       backdrop-filter: blur(25px);
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 32px;
-      box-shadow: 
-        0 20px 40px rgba(103, 63, 197, 0.1),
-        0 8px 16px rgba(103, 63, 197, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      box-shadow: 0 20px 40px rgba(103, 63, 197, 0.1), 0 8px 16px rgba(103, 63, 197, 0.15);
       overflow: hidden;
       position: relative;
-      animation: cardFloat 6s ease-in-out infinite;
-    }
-
-    @keyframes cardFloat {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-      animation: gradientSlide 3s ease-in-out infinite;
-    }
-
-    @keyframes gradientSlide {
-      0%, 100% { transform: translateX(-100%); }
-      50% { transform: translateX(100%); }
     }
 
     .header {
       background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-      background-size: 300% 300%;
-      animation: headerGlow 4s ease-in-out infinite;
       color: #fff;
       padding: 40px 30px 30px;
       text-align: center;
@@ -173,50 +106,11 @@
       overflow: hidden;
     }
 
-    @keyframes headerGlow {
-      0%, 100% { background-position: 0% 0%; }
-      50% { background-position: 100% 100%; }
-    }
-
-    .header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
-      animation: pulse 3s ease-in-out infinite;
-    }
-
     .header h1 {
       font-size: 2.5rem;
       font-weight: 800;
       margin-bottom: 12px;
-      letter-spacing: -1px;
-      position: relative;
-      z-index: 2;
       text-shadow: 0 0 20px rgba(255,255,255,0.5);
-      animation: textGlow 2.5s ease-in-out infinite alternate;
-    }
-
-    @keyframes textGlow {
-      0%, 100% { 
-        text-shadow: 0 0 10px rgba(255,255,255,0.8);
-        transform: scale(1);
-      }
-      50% { 
-        text-shadow: 0 0 30px rgba(255,255,255,0.9), 0 0 40px var(--primary);
-        transform: scale(1.02);
-      }
-    }
-
-    .header p {
-      font-size: 1.1rem;
-      opacity: 0.9;
-      font-weight: 300;
-      position: relative;
-      z-index: 2;
     }
 
     .researcher {
@@ -225,55 +119,18 @@
       padding: 22px 30px;
       text-align: center;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
-      z-index: 2;
-    }
-
-    .researcher::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(247, 121, 125, 0.05) 20%, 
-        transparent 50%, 
-        rgba(247, 121, 125, 0.05) 80%, 
-        transparent 100%
-      );
-      animation: shimmer 3s ease-in-out infinite;
-    }
-
-    @keyframes shimmer {
-      0%, 100% { transform: translateX(-100%); }
-      50% { transform: translateX(100%); }
     }
 
     .researcher h2 {
       font-size: 1.3rem;
       color: var(--primary);
       font-weight: 700;
-      letter-spacing: 1px;
-      margin-bottom: 4px;
-      animation: nameFloat 2s ease-in-out infinite;
-    }
-
-    @keyframes nameFloat {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-3px); }
-    }
-
-    .researcher p {
-      color: var(--primary);
-      font-style: italic;
-      font-size: 1rem;
-      opacity: 0.8;
     }
 
     .content {
       padding: 40px 35px;
+      max-height: 60vh;
+      overflow-y: auto;
       position: relative;
       z-index: 2;
     }
@@ -291,82 +148,31 @@
       border-radius: 50%;
       background: rgba(247, 121, 125, 0.3);
       border: 2px solid rgba(247, 121, 125, 0.5);
-      position: relative;
       transition: var(--transition);
-      cursor: pointer;
     }
 
     .step-dot.active {
       background: var(--primary);
       border-color: var(--primary);
-      animation: pulseDot 2s ease-in-out infinite;
       box-shadow: 0 0 15px var(--primary);
     }
 
-    @keyframes pulseDot {
-      0%, 100% { 
-        transform: scale(1);
-        box-shadow: 0 0 10px var(--primary);
-      }
-      50% { 
-        transform: scale(1.2);
-        box-shadow: 0 0 20px var(--primary);
-      }
-    }
-
-    .page-transition {
-      position: relative;
-      min-height: 500px;
-    }
-
     .page {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      display: none;
     }
 
     .page.active {
-      opacity: 1;
-      visibility: visible;
+      display: block;
+      animation: fadeIn 0.6s ease-out;
     }
 
-    /* Slide transitions */
-    .page.slide-out-left {
-      animation: slideOutLeft 0.4s ease-out;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .page.slide-in-right {
-      animation: slideInRight 0.4s ease-out;
-    }
-
-    @keyframes slideOutLeft {
-      from { transform: translateX(0); opacity: 1; }
-      to { transform: translateX(-50px); opacity: 0; }
-    }
-
-    @keyframes slideInRight {
-      from { transform: translateX(50px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    /* Question styling */
     .question-container {
-      animation: formSlideIn 0.6s ease-out;
-    }
-
-    @keyframes formSlideIn {
-      from { 
-        opacity: 0; 
-        transform: translateY(20px); 
-      }
-      to { 
-        opacity: 1; 
-        transform: translateY(0); 
-      }
+      margin-bottom: 40px;
     }
 
     .question-title {
@@ -389,14 +195,6 @@
       border-radius: 2px;
     }
 
-    .question-subtitle {
-      font-size: 1rem;
-      color: var(--text-secondary);
-      margin-bottom: 25px;
-      font-style: italic;
-      opacity: 0.8;
-    }
-
     .checkbox-group {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -408,24 +206,13 @@
       display: flex;
       align-items: center;
       cursor: pointer;
-      user-select: none;
       padding: 15px;
       border: 2px solid rgba(247, 121, 125, 0.2);
       border-radius: 12px;
       background: rgba(255, 255, 255, 0.7);
       backdrop-filter: blur(5px);
       transition: var(--transition);
-      animation: checkboxFloat 0.5s ease-out;
     }
-
-    @keyframes checkboxFloat {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .checkbox-item:nth-child(2n) { animation-delay: 0.1s; }
-    .checkbox-item:nth-child(3n) { animation-delay: 0.2s; }
-    .checkbox-item:nth-child(4n) { animation-delay: 0.3s; }
 
     .checkbox-item:hover {
       transform: translateY(-3px);
@@ -446,18 +233,11 @@
       margin-right: 12px;
       position: relative;
       transition: var(--transition);
-      flex-shrink: 0;
     }
 
     .checkbox-item input[type="checkbox"]:checked + .checkmark {
       background: var(--primary);
       border-color: var(--primary);
-      animation: checkmarkPop 0.3s ease-out;
-    }
-
-    @keyframes checkmarkPop {
-      from { transform: scale(0); }
-      to { transform: scale(1); }
     }
 
     .checkbox-item input[type="checkbox"]:checked + .checkmark:after {
@@ -470,34 +250,11 @@
       border: solid white;
       border-width: 0 2px 2px 0;
       transform: rotate(45deg);
-      animation: checkmarkDraw 0.3s ease-out;
-    }
-
-    @keyframes checkmarkDraw {
-      from { height: 0; opacity: 0; }
-      to { height: 8px; opacity: 1; }
-    }
-
-    .checkbox-label {
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      transition: var(--transition);
-    }
-
-    .checkbox-item:hover .checkbox-label {
-      color: var(--primary);
-      font-weight: 600;
     }
 
     .form-group {
       margin-bottom: 25px;
-      animation: formSlideIn 0.6s ease-out;
     }
-
-    .form-group:nth-child(1) { animation-delay: 0.1s; }
-    .form-group:nth-child(2) { animation-delay: 0.2s; }
-    .form-group:nth-child(3) { animation-delay: 0.3s; }
 
     .form-group label {
       display: block;
@@ -505,24 +262,6 @@
       font-weight: 600;
       color: var(--text-primary);
       font-size: 1.1rem;
-      letter-spacing: 0.5px;
-      position: relative;
-      transition: var(--transition);
-    }
-
-    .form-group label::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      transition: width 0.3s ease;
-    }
-
-    .form-group:hover label::after {
-      width: 100%;
     }
 
     .form-input {
@@ -534,83 +273,32 @@
       background: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(10px);
       transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .form-input::placeholder {
-      color: rgba(247, 121, 125, 0.4);
-      font-weight: 300;
     }
 
     .form-input:focus {
       outline: none;
       border-color: var(--primary);
       background: rgba(255, 255, 255, 0.95);
-      transform: translateY(-2px);
       box-shadow: 0 8px 25px rgba(247, 121, 125, 0.2);
-    }
-
-    .form-input:focus::placeholder {
-      opacity: 0;
-      transition: opacity 0.3s ease;
     }
 
     .camera-group {
       margin-bottom: 25px;
       text-align: center;
-      animation: cameraFloat 0.8s ease-out 0.4s both;
-    }
-
-    @keyframes cameraFloat {
-      from { 
-        opacity: 0; 
-        transform: translateY(30px) rotateX(-90deg); 
-      }
-      to { 
-        opacity: 1; 
-        transform: translateY(0) rotateX(0deg); 
-      }
     }
 
     #camera-container {
       background: linear-gradient(135deg, rgba(255, 231, 232, 0.6), rgba(255, 240, 244, 0.4));
       border-radius: 20px;
       padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 
-        inset 0 2px 4px rgba(255, 255, 255, 0.2),
-        0 8px 25px rgba(247, 121, 125, 0.1);
+      margin: 20px 0;
+      min-height: 200px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 200px;
+      justify-content: center;
       position: relative;
       overflow: hidden;
-      transition: var(--transition);
-    }
-
-    #camera-container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 50% 50%, rgba(247, 121, 125, 0.1) 0%, transparent 70%);
-      animation: cameraGlow 3s ease-in-out infinite;
-    }
-
-    @keyframes cameraGlow {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.6; }
-    }
-
-    #camera-container.active {
-      background: linear-gradient(135deg, rgba(255, 245, 250, 0.8), rgba(255, 250, 255, 0.6));
-      box-shadow: 
-        0 0 30px rgba(247, 121, 125, 0.3),
-        inset 0 2px 4px rgba(255, 255, 255, 0.3);
     }
 
     video {
@@ -622,13 +310,6 @@
       background: #fff;
       aspect-ratio: 4/3;
       border: 2px solid rgba(247, 121, 125, 0.2);
-      transition: var(--transition);
-      transform: scale(1);
-    }
-
-    video:hover {
-      transform: scale(1.02);
-      box-shadow: 0 12px 35px rgba(255, 182, 125, 0.2);
     }
 
     .btn {
@@ -641,69 +322,19 @@
       margin: 8px;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: #fff;
-      box-shadow: 
-        0 8px 25px rgba(247, 121, 125, 0.3),
-        0 4px 8px rgba(247, 121, 125, 0.2);
-      letter-spacing: 1px;
-      position: relative;
-      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(247, 121, 125, 0.3);
       transition: var(--transition);
-      transform: translateY(0);
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: all 0.3s ease;
-    }
-
-    .btn:hover::before {
-      width: 300px;
-      height: 300px;
     }
 
     .btn:hover {
       transform: translateY(-3px);
-      box-shadow: 
-        0 12px 35px rgba(247, 121, 125, 0.4),
-        0 6px 12px rgba(247, 121, 125, 0.3);
+      box-shadow: 0 12px 35px rgba(247, 121, 125, 0.4);
     }
 
-    .btn:active {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(247, 121, 125, 0.3);
-    }
-
-    .btn-primary {
-      animation: btnPulse 2s ease-in-out infinite;
-    }
-
-    @keyframes btnPulse {
-      0%, 100% { 
-        transform: translateY(0) scale(1);
-        box-shadow: 0 8px 25px rgba(247, 121, 125, 0.3);
-      }
-      50% { 
-        transform: translateY(-2px) scale(1.02);
-        box-shadow: 0 12px 35px rgba(247, 121, 125, 0.4);
-      }
-    }
-
-    .btn-secondary {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      animation: btnFloat 1.5s ease-in-out infinite alternate;
-    }
-
-    @keyframes btnFloat {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-2px); }
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
     }
 
     .nav {
@@ -711,61 +342,23 @@
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       justify-content: center;
-      z-index: 20;
+      gap: 15px;
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(10px);
     }
 
-    .hidden { 
-      display: none; 
-    }
+    .hidden { display: none; }
 
     #results {
       text-align: center;
       padding: 50px 30px;
-      animation: resultsPopIn 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
-      position: relative;
-    }
-
-    @keyframes resultsPopIn {
-      0% { 
-        opacity: 0; 
-        transform: scale(0.8) rotateX(-90deg); 
-        filter: blur(10px);
-      }
-      50% { 
-        transform: scale(1.05) rotateX(10deg); 
-        filter: blur(2px);
-      }
-      100% { 
-        opacity: 1; 
-        transform: scale(1) rotateX(0deg); 
-        filter: blur(0);
-      }
     }
 
     #results .checkmark {
       font-size: 80px;
-      color: #41c776;
+      color: #4CAF50;
       margin-bottom: 25px;
-      animation: checkmarkBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
       display: block;
-      text-shadow: 0 0 20px rgba(65, 199, 118, 0.5);
-    }
-
-    @keyframes checkmarkBounce {
-      0% { 
-        transform: scale(0) rotate(-180deg); 
-        opacity: 0; 
-      }
-      50% { 
-        transform: scale(1.2) rotate(10deg); 
-        opacity: 0.8; 
-      }
-      100% { 
-        transform: scale(1) rotate(0deg); 
-        opacity: 1; 
-      }
     }
 
     #results h2 {
@@ -773,24 +366,6 @@
       font-weight: 800;
       color: var(--text-primary);
       margin-bottom: 15px;
-      animation: titleGlow 1.5s ease-in-out infinite alternate;
-    }
-
-    @keyframes titleGlow {
-      0%, 100% { 
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-      }
-      50% { 
-        text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-      }
-    }
-
-    #results p {
-      margin-top: 15px;
-      font-size: 1.15rem;
-      color: var(--primary);
-      font-weight: 600;
-      line-height: 1.6;
     }
 
     .result-details {
@@ -799,19 +374,8 @@
       padding: 20px;
       margin: 25px 0;
       border: 1px solid rgba(247, 121, 125, 0.2);
-      animation: detailsSlideUp 0.8s ease-out 0.2s both;
+      text-align: left;
       backdrop-filter: blur(10px);
-    }
-
-    @keyframes detailsSlideUp {
-      from { 
-        opacity: 0; 
-        transform: translateY(30px); 
-      }
-      to { 
-        opacity: 1; 
-        transform: translateY(0); 
-      }
     }
 
     #preview-img, #final-img {
@@ -819,77 +383,26 @@
       box-shadow: 0 12px 35px rgba(247, 121, 125, 0.2);
       margin: 20px auto;
       display: block;
-      width: 100%;
       max-width: 350px;
-      background: #fff;
-      animation: photoGlow 1s ease-in-out;
       aspect-ratio: 4/3;
       object-fit: cover;
     }
 
-    @keyframes photoGlow {
-      0% { 
-        opacity: 0; 
-        transform: scale(0.8) rotateY(-180deg); 
-      }
-      100% { 
-        opacity: 1; 
-        transform: scale(1) rotateY(0deg); 
-      }
-    }
-
-    /* Responsive Design with Animations */
     @media (max-width: 768px) {
-      .container {
-        margin-top: 20px;
-        margin-left: 15px;
-        margin-right: 15px;
-      }
-
-      .content {
-        padding: 30px 20px;
-      }
-
-      .header {
-        padding: 30px 20px 20px;
-      }
-
-      .header h1 {
-        font-size: 2rem;
-      }
-
-      .nav {
-        padding: 20px 15px;
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      .btn {
-        width: 100%;
-        max-width: 280px;
-      }
-
-      .checkbox-group {
-        grid-template-columns: 1fr;
-      }
+      .container { margin: 20px 15px; }
+      .content { padding: 30px 20px; max-height: 55vh; }
+      .header { padding: 30px 20px 20px; }
+      .header h1 { font-size: 2rem; }
+      .checkbox-group { grid-template-columns: 1fr; }
+      .nav { flex-direction: column; padding: 20px; }
+      .btn { width: 100%; max-width: 280px; }
     }
 
-    /* Micro-interactions */
-    .input-focus::placeholder {
-      animation: placeholderFloat 0.6s ease-out;
-    }
-
-    @keyframes placeholderFloat {
-      from { transform: translateY(0); opacity: 1; }
-      to { transform: translateY(-10px); opacity: 0; }
-    }
-
-    /* Loading animations */
     .loading {
       display: inline-block;
       width: 20px;
       height: 20px;
-      border: 3px solid rgba(255, 255, 255, 0.3);
+      border: 3px solid rgba(255,255,255,0.3);
       border-radius: 50%;
       border-top-color: #fff;
       animation: spin 1s ease-in-out infinite;
@@ -899,53 +412,28 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Success animation */
-    .success-particles {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 30;
+    .status-message {
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: fadeIn 0.5s ease-out;
     }
 
-    .success-particle {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
-      border-radius: 50%;
-      animation: particleBurst 3s ease-out;
-    }
-
-    @keyframes particleBurst {
-      0% { 
-        opacity: 1; 
-        transform: scale(0) translateY(0); 
-      }
-      50% { 
-        opacity: 0.8; 
-        transform: scale(1) translateY(-100px) rotate(180deg); 
-      }
-      100% { 
-        opacity: 0; 
-        transform: scale(0) translateY(-200px) rotate(360deg); 
-      }
-    }
+    .status-success { background: rgba(76, 175, 80, 0.1); border: 1px solid rgba(76, 175, 80, 0.3); color: var(--success); }
+    .status-error { background: rgba(244, 67, 54, 0.1); border: 1px solid rgba(244, 67, 54, 0.3); color: var(--error); }
   </style>
 </head>
 <body>
-  <!-- ✨ Magical Particle Background -->
   <div class="particles" id="particles"></div>
-  
-  <!-- 🌟 Liquid Morphing Background -->
-  <div class="liquid-bg"></div>
   
   <div class="container">
     <div class="card">
       <div class="header">
-        <h1>🥗 Daily Diet Quality Assessment</h1>
+        <h1>Daily Diet Quality Assessment</h1>
         <p>Complete your details and submit your image</p>
       </div>
       
@@ -955,515 +443,321 @@
       </div>
       
       <div class="content">
-        <!-- Step Indicator -->
+        <div id="statusContainer"></div>
+        
         <div class="step-indicator">
           <div class="step-dot active" data-step="1"></div>
           <div class="step-dot" data-step="2"></div>
+          <div class="step-dot" data-step="3"></div>
         </div>
 
-        <!-- Multi-Page Form System -->
-        <div class="page-transition">
-          <!-- Page 1: Diet Questions -->
-          <div class="page active" id="page1">
-            <!-- Food Groups Question -->
-            <div class="question-container">
-              <h3 class="question-title">🍎 Food Groups Consumed</h3>
-              <p class="question-subtitle">Which of these food groups did you consume in the past day? (Select all that apply)</p>
-              <div class="checkbox-group">
-                <label class="checkbox-item">
-                  <input type="checkbox" name="foodGroups" value="Meat/Poultry/Fish/Egg">
-                  <span class="checkmark"></span>
-                  <span class="checkbox-label">Meat/Poultry/Fish/Egg</span>
-                </label>
-                <label class="checkbox-item">
-                  <input type="checkbox" name="foodGroups" value="Dairy/Beans">
-                  <span class="checkmark"></span>
-                  <span class="checkbox-label">Dairy/Beans</span>
-                </label>
-                <label class="checkbox-item">
-                  <input type="checkbox" name="foodGroups" value="Grains">
-                  <span class="checkmark"></span>
-                  <span class="checkbox-label">Grains</span>
-                </label>
-                <label class="checkbox-item">
-                  <input type="checkbox" name="foodGroups" value="Fruits">
-                  <span class="checkmark"></span>
-                  <span class="checkbox-label">Fruits</span>
-                </label>
-                <label class="checkbox-item">
-                  <input type="checkbox" name="foodGroups" value="Vegetables">
-                  <span class="checkmark"></span>
-                  <span class="checkbox-label">Vegetables</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- Protein Sources Question -->
-            <div class="question-container">
-              <h3 class="question-title">💪 Protein Sources</h3>
-              <p class="question-subtitle">Which of these protein sources did you consume in the past day? (Select all that apply)</p>
-              <div class="checkbox-group">
-                <label class="checkbox-item">
-                  <input type="checkbox" name="proteinSources" value="Meat">
-                  <span class="checkmark"></span>
-                  <span class="checkbox-label">Meat</span>
-                </label>
-                <label class="checkbox-item">
-                  <input type="checkbox" name="proteinSources" value="Poultry">
-                  <span class="checkmark"></span>
-                  <span class="checkbox-label">Poultry</span>
-                </label>
-                <label class="checkbox-item">
-                  <input type="checkbox" name="proteinSources" value="Fish">
-                  <span class="checkmark"></span>
-                  <span class="checkbox-label">Fish</span>
-                </label>
-                <label class="checkbox-item">
-                  <input type="checkbox" name="proteinSources" value="Dairy">
-                  <span class="checkmark"></span>
-                  <span class="checkbox-label">Dairy</span>
-                </label>
-                <label class="checkbox-item">
-                  <input type="checkbox" name="proteinSources" value="Beans">
-                  <span class="checkmark"></span>
-                  <span class="checkbox-label">Beans</span>
-                </label>
-                <label class="checkbox-item">
-                  <input type="checkbox" name="proteinSources" value="Eggs">
-                  <span class="checkmark"></span>
-                  <span class="checkbox-label">Eggs</span>
-                </label>
-              </div>
+        <!-- Page 1: Diet Questions -->
+        <div class="page active" id="page1">
+          <div class="question-container">
+            <h3 class="question-title">Food Groups Consumed</h3>
+            <p class="question-subtitle">Which of these food groups did you consume in the past day?</p>
+            <div class="checkbox-group">
+              <label class="checkbox-item">
+                <input type="checkbox" name="foodGroups" value="Meat/Poultry/Fish/Egg">
+                <span class="checkmark"></span>
+                <span class="checkbox-label">Meat/Poultry/Fish/Egg</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="foodGroups" value="Dairy/Beans">
+                <span class="checkmark"></span>
+                <span class="checkbox-label">Dairy/Beans</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="foodGroups" value="Grains">
+                <span class="checkmark"></span>
+                <span class="checkbox-label">Grains</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="foodGroups" value="Fruits">
+                <span class="checkmark"></span>
+                <span class="checkbox-label">Fruits</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="foodGroups" value="Vegetables">
+                <span class="checkmark"></span>
+                <span class="checkbox-label">Vegetables</span>
+              </label>
             </div>
           </div>
 
-          <!-- Page 2: Personal Info & Camera -->
-          <div class="page" id="page2">
-            <div class="form-group">
-              <label for="name">Full Name *</label>
-              <input type="text" id="name" class="form-input" placeholder="Enter your beautiful name" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="phone">Phone Number *</label>
-              <input type="tel" id="phone" class="form-input" placeholder="Enter your phone number" required />
-            </div>
-            
-            <div class="camera-group">
-              <label style="font-weight:600;color:var(--text-primary);font-size:1.1rem;margin-bottom:15px;display:block;">✨ Live Photo Capture *</label>
-              <div id="camera-container">
-                <video id="video" autoplay playsinline style="display: none;"></video>
-                <div id="camera-placeholder" style="display: flex; align-items: center; justify-content: center; color: var(--primary); font-weight: 500;">
-                  📷 Camera loading...
-                </div>
-              </div>
-              <button class="btn btn-primary" id="captureBtn" onclick="capture()" style="animation: captureFloat 1.5s ease-in-out infinite;">
-                📸 Capture Photo
-              </button>
-              <img id="preview-img" class="hidden" alt="preview"/>
+          <div class="question-container">
+            <h3 class="question-title">Protein Sources</h3>
+            <p class="question-subtitle">Which protein sources did you consume?</p>
+            <div class="checkbox-group">
+              <label class="checkbox-item">
+                <input type="checkbox" name="proteinSources" value="Meat">
+                <span class="checkmark"></span>
+                <span class="checkbox-label">Meat</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="proteinSources" value="Poultry">
+                <span class="checkmark"></span>
+                <span class="checkbox-label">Poultry</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="proteinSources" value="Fish">
+                <span class="checkmark"></span>
+                <span class="checkbox-label">Fish</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="proteinSources" value="Dairy">
+                <span class="checkmark"></span>
+                <span class="checkbox-label">Dairy</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="proteinSources" value="Beans">
+                <span class="checkmark"></span>
+                <span class="checkbox-label">Beans</span>
+              </label>
+              <label class="checkbox-item">
+                <input type="checkbox" name="proteinSources" value="Eggs">
+                <span class="checkmark"></span>
+                <span class="checkbox-label">Eggs</span>
+              </label>
             </div>
           </div>
+        </div>
 
-          <!-- Page 3: Results -->
-          <div class="page" id="page3">
-            <div id="results">
-              <div class="success-particles" id="successParticles"></div>
-              <span class="checkmark">✓</span>
-              <h2>Congratulations! 🎉</h2>
-              <div class="result-details">
-                <p><strong>Name:</strong> <span id="result-name"></span></p>
-                <p><strong>Mobile:</strong> <span id="result-phone"></span></p>
-                <p><strong>Submission Time:</strong> <span id="result-time"></span></p>
-              </div>
-              <p>Your diet assessment has been successfully submitted!</p>
-              <p style="margin-top:20px;font-size:1rem;color:var(--text-secondary);">✨ A member of our team will contact you soon</p>
-              <img id="final-img" alt="Final captured"/>
+        <!-- Page 2: Personal Info & Camera -->
+        <div class="page" id="page2">
+          <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" class="form-input" placeholder="Enter your name" required />
+          </div>
+          
+          <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" id="phone" class="form-input" placeholder="Enter your phone" required />
+          </div>
+          
+          <div class="camera-group">
+            <label style="font-weight:600;color:var(--text-primary);font-size:1.1rem;margin-bottom:15px;display:block;">Live Photo Capture *</label>
+            <div id="camera-container">
+              <div id="camera-placeholder">Click "Start Camera" to begin</div>
+              <video id="video" autoplay playsinline style="display: none;"></video>
             </div>
+            <button class="btn btn-primary" id="startCameraBtn">Start Camera</button>
+            <button class="btn btn-primary hidden" id="captureBtn">Capture Photo</button>
+            <img id="preview-img" class="hidden" alt="preview"/>
+          </div>
+        </div>
+
+        <!-- Page 3: Results -->
+        <div class="page" id="page3">
+          <div id="results">
+            <span class="checkmark">✓</span>
+            <h2>Congratulations!</h2>
+            <div class="result-details">
+              <p><strong>Name:</strong> <span id="result-name"></span></p>
+              <p><strong>Phone:</strong> <span id="result-phone"></span></p>
+              <p><strong>Food Groups:</strong> <span id="result-food-groups"></span></p>
+              <p><strong>Protein Sources:</strong> <span id="result-protein-sources"></span></p>
+              <p><strong>Time:</strong> <span id="result-time"></span></p>
+            </div>
+            <p>Your diet assessment has been submitted!</p>
+            <img id="final-img" alt="Final captured"/>
           </div>
         </div>
       </div>
       
       <div class="nav">
-        <button class="btn btn-secondary" id="prevBtn" onclick="prevPage()" style="display: none;">
-          ← Previous
-        </button>
-        <button class="btn btn-primary" id="nextBtn" onclick="nextPage()">
-          Next →
-        </button>
-        <button class="btn btn-primary" id="submitBtn" onclick="submit()" style="display: none;">
-          🚀 Submit
-        </button>
+        <button class="btn btn-secondary" id="prevBtn" onclick="prevPage()" style="display: none;">Previous</button>
+        <button class="btn btn-primary" id="nextBtn" onclick="nextPage()">Next</button>
+        <button class="btn btn-primary hidden" id="submitBtn" onclick="submitForm()">Submit</button>
       </div>
     </div>
   </div>
 
   <script>
-    // ✨ Aarohi's Magical Animation System ✨
-    class MagicalSurvey {
+    class DietSurvey {
       constructor() {
         this.currentStep = 1;
         this.totalSteps = 3;
-        this.responses = {};
+        this.responses = { foodGroups: [], proteinSources: [] };
         this.capturedImage = '';
-        this.cameraStream = null;
-        
-        this.initializeElements();
+        this.stream = null;
+
+        // Google Apps Script Web App URL
+        this.googleSheetURL = 'https://script.google.com/macros/s/AKfycbzv_2_4k1KpqjYwu05nSf96D5KOaS7SFUzBFIObjBgMMZxYbyGMFYW8ACEZKXzX';
+
+        this.init();
+      }
+
+      init() {
         this.createParticles();
         this.bindEvents();
-        this.startCamera();
-        this.animateStepIndicator();
+        this.updateNav();
       }
-      
-      initializeElements() {
-        this.stepDots = document.querySelectorAll('.step-dot');
-        this.pages = document.querySelectorAll('.page');
-        this.prevBtn = document.getElementById('prevBtn');
-        this.nextBtn = document.getElementById('nextBtn');
-        this.submitBtn = document.getElementById('submitBtn');
-        this.video = document.getElementById('video');
-        this.cameraPlaceholder = document.getElementById('camera-placeholder');
-        this.captureBtn = document.getElementById('captureBtn');
-        this.preview = document.getElementById('preview-img');
-        this.cameraContainer = document.getElementById('camera-container');
-      }
-      
-      // ✨ Create Magical Particles ✨
+
       createParticles() {
-        const particlesContainer = document.getElementById('particles');
+        const container = document.getElementById('particles');
         for (let i = 0; i < 15; i++) {
-          const particle = document.createElement('div');
-          particle.className = 'particle';
-          particle.style.left = Math.random() * 100 + '%';
-          particle.style.top = Math.random() * 100 + '%';
-          particle.style.width = Math.random() * 8 + 4 + 'px';
-          particle.style.height = particle.style.width;
-          particle.style.animationDelay = Math.random() * 5 + 's';
-          particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
-          particlesContainer.appendChild(particle);
+          const p = document.createElement('div');
+          p.className = 'particle';
+          p.style.left = Math.random() * 100 + '%';
+          p.style.top = Math.random() * 100 + '%';
+          p.style.width = p.style.height = (Math.random() * 6 + 4) + 'px';
+          p.style.animationDelay = Math.random() * 5 + 's';
+          container.appendChild(p);
         }
       }
-      
+
       bindEvents() {
-        // Form input animations
-        document.querySelectorAll('.form-input').forEach(input => {
-          input.addEventListener('focus', () => this.animateInputFocus(input));
-          input.addEventListener('input', () => this.handleInputChange(input));
-        });
-        
-        // Checkbox animations
-        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-          checkbox.addEventListener('change', () => this.handleCheckboxChange(checkbox));
-        });
-        
-        // Step indicator clicks
-        this.stepDots.forEach(dot => {
-          dot.addEventListener('click', () => {
-            const step = parseInt(dot.dataset.step);
-            if (step <= this.currentStep) {
-              this.goToStep(step);
+        document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+          cb.addEventListener('change', () => {
+            const key = cb.name;
+            if (cb.checked) {
+              if (!this.responses[key].includes(cb.value)) {
+                this.responses[key].push(cb.value);
+              }
+            } else {
+              this.responses[key] = this.responses[key].filter(v => v !== cb.value);
             }
           });
         });
+
+        document.getElementById('startCameraBtn').addEventListener('click', () => this.startCamera());
+        document.getElementById('captureBtn').addEventListener('click', () => this.capturePhoto());
       }
-      
-      handleCheckboxChange(checkbox) {
-        const name = checkbox.name;
-        if (!this.responses[name]) {
-          this.responses[name] = [];
-        }
-        
-        if (checkbox.checked) {
-          this.responses[name].push(checkbox.value);
-          // Add selection animation
-          const label = checkbox.parentElement;
-          label.style.transform = 'scale(1.02)';
-          label.style.background = 'rgba(247, 121, 125, 0.1)';
-          setTimeout(() => {
-            label.style.transform = 'scale(1)';
-          }, 150);
-        } else {
-          const index = this.responses[name].indexOf(checkbox.value);
-          if (index > -1) {
-            this.responses[name].splice(index, 1);
-          }
-        }
-      }
-      
-      animateInputFocus(input) {
-        const label = input.previousElementSibling;
-        label.style.transform = 'translateY(-2px)';
-        label.style.color = 'var(--primary)';
-        input.style.borderColor = 'var(--primary)';
-        input.style.boxShadow = '0 0 15px rgba(247, 121, 125, 0.2)';
-        
-        // Remove effects after blur
-        input.addEventListener('blur', () => {
-          if (!input.value) {
-            label.style.transform = 'translateY(0)';
-            label.style.color = 'var(--text-primary)';
-          }
-          input.style.borderColor = 'rgba(247, 121, 125, 0.2)';
-          input.style.boxShadow = 'none';
-        });
-      }
-      
-      handleInputChange(input) {
-        this.responses[input.id] = input.value;
-        // Add typing animation effect
-        if (input.value.length > 0) {
-          input.style.background = 'linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8))';
-        } else {
-          input.style.background = 'rgba(255, 255, 255, 0.8)';
-        }
-      }
-      
+
       async startCamera() {
+        const video = document.getElementById('video');
+        const placeholder = document.getElementById('camera-placeholder');
+        const startBtn = document.getElementById('startCameraBtn');
+        const captureBtn = document.getElementById('captureBtn');
+
         try {
-          this.cameraStream = await navigator.mediaDevices.getUserMedia({ 
-            video: { facingMode: 'user', width: { ideal: 320 }, height: { ideal: 240 } }
-          });
-          this.video.srcObject = this.cameraStream;
-          this.cameraPlaceholder.style.display = 'none';
-          this.video.style.display = 'block';
-          this.cameraContainer.classList.add('active');
-          
-          // Add camera glow animation
-          this.cameraContainer.style.animation = 'cameraGlow 2s ease-in-out infinite';
-          
-        } catch (error) {
-          console.error('Camera access denied:', error);
-          this.cameraPlaceholder.textContent = '❌ Camera access denied';
-          this.cameraPlaceholder.style.color = 'var(--primary)';
+          this.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+          video.srcObject = this.stream;
+          video.style.display = 'block';
+          placeholder.style.display = 'none';
+          startBtn.classList.add('hidden');
+          captureBtn.classList.remove('hidden');
+        } catch (err) {
+          this.showStatus('Camera access denied. Please allow camera.', 'error');
         }
       }
-      
-      capture() {
-        // ✨ Capture animation ✨
-        this.cameraContainer.style.animation = 'captureEffect 0.5s ease-out';
-        
-        setTimeout(() => {
-          const canvas = document.createElement('canvas');
-          canvas.width = this.video.videoWidth || 320;
-          canvas.height = this.video.videoHeight || 240;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(this.video, 0, 0, canvas.width, canvas.height);
-          this.capturedImage = canvas.toDataURL('image/png');
-          
-          this.preview.src = this.capturedImage;
-          this.preview.classList.remove('hidden');
-          
-          // Animate the capture button
-          this.captureBtn.style.animation = 'captureSuccess 0.6s ease-out';
-          this.captureBtn.innerHTML = '✅ Photo Captured!';
-          
-          // Show success particles
-          this.showSuccessParticles();
-          
-        }, 500);
-      }
-      
-      showSuccessParticles() {
-        const container = document.getElementById('successParticles');
-        for (let i = 0; i < 20; i++) {
-          const particle = document.createElement('div');
-          particle.className = 'success-particle';
-          particle.style.left = Math.random() * 100 + '%';
-          particle.style.top = Math.random() * 100 + '%';
-          particle.style.animationDelay = (i * 0.1) + 's';
-          container.appendChild(particle);
-          
-          // Remove after animation
-          setTimeout(() => particle.remove(), 3000);
+
+      capturePhoto() {
+        const video = document.getElementById('video');
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+        this.capturedImage = canvas.toDataURL('image/png');
+
+        document.getElementById('preview-img').src = this.capturedImage;
+        document.getElementById('preview-img').classList.remove('hidden');
+        document.getElementById('captureBtn').textContent = 'Retake';
+        document.getElementById('captureBtn').onclick = () => location.reload(); // Simple retake
+
+        // Stop camera
+        if (this.stream) {
+          this.stream.getTracks().forEach(track => track.stop());
+          video.style.display = 'none';
         }
       }
-      
+
+      goToStep(step) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(`page${step}`).classList.add('active');
+        document.querySelectorAll('.step-dot').forEach((d, i) => {
+          d.classList.toggle('active', i < step);
+        });
+        this.currentStep = step;
+        this.updateNav();
+
+        if (step === 2) setTimeout(() => window.scrollTo(0, 0), 100);
+      }
+
       nextPage() {
         if (this.currentStep < this.totalSteps) {
           this.goToStep(this.currentStep + 1);
         }
       }
-      
+
       prevPage() {
         if (this.currentStep > 1) {
           this.goToStep(this.currentStep - 1);
         }
       }
-      
-      goToStep(step) {
-        // Update current step
-        this.currentStep = step;
-        
-        // Animate step indicator
-        this.animateStepIndicator();
-        
-        // Animate pages
-        const currentPage = document.querySelector('.page.active');
-        const nextPage = document.getElementById(`page${step}`);
-        
-        if (currentPage && nextPage && currentPage !== nextPage) {
-          // Add slide/fade animations
-          currentPage.classList.add('slide-out-left');
-          nextPage.classList.add('slide-in-right', 'active');
-          
-          setTimeout(() => {
-            currentPage.classList.remove('active', 'slide-out-left');
-            nextPage.classList.remove('slide-in-right');
-          }, 400);
-        }
-        
-        this.updateNavigation();
+
+      updateNav() {
+        document.getElementById('prevBtn').style.display = this.currentStep > 1 ? 'inline-flex' : 'none';
+        document.getElementById('nextBtn').style.display = this.currentStep < 2 ? 'inline-flex' : 'none';
+        document.getElementById('submitBtn').style.display = this.currentStep === 2 ? 'inline-flex' : 'none';
       }
-      
-      animateStepIndicator() {
-        this.stepDots.forEach((dot, index) => {
-          if (index < this.currentStep) {
-            dot.classList.add('active');
-          } else {
-            dot.classList.remove('active');
-          }
-        });
+
+      showStatus(msg, type = 'success') {
+        const div = document.createElement('div');
+        div.className = `status-message status-${type}`;
+        div.innerHTML = `${type === 'success' ? 'Success' : 'Error'} ${msg}`;
+        document.getElementById('statusContainer').appendChild(div);
+        setTimeout(() => div.remove(), 5000);
       }
-      
-      updateNavigation() {
-        this.prevBtn.style.display = this.currentStep > 1 ? 'inline-flex' : 'none';
-        
-        if (this.currentStep === this.totalSteps) {
-          this.nextBtn.style.display = 'none';
-          this.submitBtn.style.display = 'inline-flex';
-        } else {
-          this.nextBtn.style.display = 'inline-flex';
-          this.submitBtn.style.display = 'none';
-        }
-      }
-      
-      submit() {
+
+      async submitForm() {
         const name = document.getElementById('name').value.trim();
         const phone = document.getElementById('phone').value.trim();
-        
-        if (!name || !phone) {
-          this.shakeForm();
-          alert('💖 Please fill in all required fields!');
+
+        if (!name || !phone || !this.capturedImage) {
+          this.showStatus('Please fill all fields and capture photo.', 'error');
           return;
         }
-        
-        if (!this.capturedImage) {
-          alert('📸 Please capture your live photo to submit!');
-          return;
+
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.innerHTML = '<div class="loading"></div> Submitting...';
+        submitBtn.disabled = true;
+
+        const data = {
+          timestamp: new Date().toISOString(),
+          name, phone,
+          foodGroups: this.responses.foodGroups,
+          proteinSources: this.responses.proteinSources,
+          image: this.capturedImage
+        };
+
+        try {
+          const res = await fetch(this.googleSheetURL, {
+            method: 'POST',
+            mode: 'cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+
+          if (res.ok) {
+            this.goToStep(3);
+            document.getElementById('result-name').textContent = name;
+            document.getElementById('result-phone').textContent = phone;
+            document.getElementById('result-food-groups').textContent = this.responses.foodGroups.join(', ') || 'None';
+            document.getElementById('result-protein-sources').textContent = this.responses.proteinSources.join(', ') || 'None';
+            document.getElementById('result-time').textContent = new Date().toLocaleString();
+            document.getElementById('final-img').src = this.capturedImage;
+          } else {
+            throw new Error('Submission failed');
+          }
+        } catch (err) {
+          this.showStatus('Submission failed. Try again.', 'error');
+          submitBtn.innerHTML = 'Submit';
+          submitBtn.disabled = false;
         }
-        
-        // Show loading state
-        this.submitBtn.innerHTML = '<div class="loading"></div> Processing...';
-        this.submitBtn.disabled = true;
-        
-        // Simulate API call
-        setTimeout(() => {
-          // Create submission data
-          const submissionData = {
-            name: name,
-            phone: phone,
-            image: this.capturedImage,
-            foodGroups: this.responses.foodGroups || [],
-            proteinSources: this.responses.proteinSources || [],
-            timestamp: new Date().toLocaleString(),
-            userAgent: navigator.userAgent
-          };
-          
-          console.log('✨ Survey submitted successfully!', submissionData);
-          
-          // Show success state
-          this.showResultsPage(name, phone);
-          
-        }, 2000);
-      }
-      
-      showResultsPage(name, phone) {
-        // Animate to results page
-        this.goToStep(3);
-        
-        // Update results
-        document.getElementById('result-name').textContent = name;
-        document.getElementById('result-phone').textContent = phone;
-        document.getElementById('result-time').textContent = new Date().toLocaleTimeString();
-        document.getElementById('final-img').src = this.capturedImage;
-        
-        // Show success animation
-        this.submitBtn.style.display = 'none';
-        this.nextBtn.style.display = 'none';
-        this.prevBtn.style.display = 'none';
-        
-        // Trigger confetti effect
-        this.showSuccessParticles();
-      }
-      
-      shakeForm() {
-        const formGroups = document.querySelectorAll('.form-group');
-        formGroups.forEach(group => {
-          group.style.animation = 'shake 0.5s ease-in-out';
-          setTimeout(() => {
-            group.style.animation = '';
-          }, 500);
-        });
       }
     }
-    
-    // Add global animation functions
-    function capture() {
-      if (window.survey) {
-        window.survey.capture();
-      }
-    }
-    
-    function nextPage() {
-      if (window.survey) {
-        window.survey.nextPage();
-      }
-    }
-    
-    function prevPage() {
-      if (window.survey) {
-        window.survey.prevPage();
-      }
-    }
-    
-    function submit() {
-      if (window.survey) {
-        window.survey.submit();
-      }
-    }
-    
-    // Initialize when DOM is loaded
+
+    // Global functions
+    function nextPage() { window.survey?.nextPage(); }
+    function prevPage() { window.survey?.prevPage(); }
+    function submitForm() { window.survey?.submitForm(); }
+
+    // Initialize
     document.addEventListener('DOMContentLoaded', () => {
-      window.survey = new MagicalSurvey();
-      console.log('✨ Magical Survey loaded! Ready to amaze users! 💫');
+      window.survey = new DietSurvey();
     });
-    
-    // Add some CSS animations
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes captureEffect {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-      }
-      
-      @keyframes captureSuccess {
-        0% { transform: scale(1); background: linear-gradient(135deg, var(--primary), var(--secondary)); }
-        50% { transform: scale(1.1); background: linear-gradient(135deg, #4CAF50, #45a049); }
-        100% { transform: scale(1); background: linear-gradient(135deg, #4CAF50, #45a049); }
-      }
-      
-      @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
-        20%, 40%, 60%, 80% { transform: translateX(10px); }
-      }
-      
-      @keyframes captureFloat {
-        0%, 100% { transform: translateY(0px) scale(1); }
-        50% { transform: translateY(-3px) scale(1.02); }
-      }
-    `;
-    document.head.appendChild(style);
   </script>
 </body>
 </html>
