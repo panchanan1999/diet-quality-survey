@@ -1,763 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Daily Diet Quality Assessment | Chandana M S</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700;800&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --primary: #f7797d;
-      --secondary: #FBD786;
-      --accent: #C6FFDD;
-      --text-primary: #1a1a2e;
-      --text-secondary: #3a3a48;
-      --border-glow: rgba(247, 121, 125, 0.4);
-      --shadow-soft: rgba(247, 121, 125, 0.1);
-      --transition: all 0.4s cubic-bezier(0.17, 0.55, 0.55, 0.86);
-      --success: #4CAF50;
-      --error: #f44336;
-      --warning: #ff9800;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body { 
-      height: 100%; 
-      overflow-x: hidden;
-    }
-
-    body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 60%, var(--accent) 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-      background-size: 400% 400%;
-      animation: gradientFlow 15s ease infinite;
-    }
-
-    @keyframes gradientFlow {
-      0%, 100% { background-position: 0% 0%; }
-      25% { background-position: 100% 100%; }
-      50% { background-position: 100% 0%; }
-      75% { background-position: 0% 100%; }
-    }
-
-    /* ✨ Magical Particle System */
-    .particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 1;
-      overflow: hidden;
-    }
-
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.1));
-      filter: blur(1px);
-      animation: floatGentle 8s ease-in-out infinite;
-    }
-
-    .particle:nth-child(odd) { animation-direction: reverse; }
-    .particle:nth-child(3n) { animation-duration: 12s; }
-    .particle:nth-child(4n) { animation-duration: 6s; }
-
-    @keyframes floatGentle {
-      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
-      10%, 90% { opacity: 0.8; }
-      50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
-    }
-
-    .container {
-      max-width: 580px;
-      margin: 40px auto 20px auto;
-      position: relative;
-      z-index: 10;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(25px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 32px;
-      box-shadow: 0 20px 40px rgba(103, 63, 197, 0.1), 0 8px 16px rgba(103, 63, 197, 0.15);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-      color: #fff;
-      padding: 40px 30px 30px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .header h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-      text-shadow: 0 0 20px rgba(255,255,255,0.5);
-    }
-
-    .researcher {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      padding: 22px 30px;
-      text-align: center;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .researcher h2 {
-      font-size: 1.3rem;
-      color: var(--primary);
-      font-weight: 700;
-    }
-
-    .content {
-      padding: 40px 35px;
-      max-height: 60vh;
-      overflow-y: auto;
-      position: relative;
-      z-index: 2;
-    }
-
-    .step-indicator {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 30px;
-      gap: 8px;
-    }
-
-    .step-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: rgba(247, 121, 125, 0.3);
-      border: 2px solid rgba(247, 121, 125, 0.5);
-      transition: var(--transition);
-    }
-
-    .step-dot.active {
-      background: var(--primary);
-      border-color: var(--primary);
-      box-shadow: 0 0 15px var(--primary);
-    }
-
-    .page {
-      display: none;
-    }
-
-    .page.active {
-      display: block;
-      animation: fadeIn 0.6s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .question-container {
-      margin-bottom: 40px;
-    }
-
-    .question-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 15px;
-      position: relative;
-      padding-bottom: 10px;
-    }
-
-    .question-title::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      border-radius: 2px;
-    }
-
-    .checkbox-group {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-      margin-bottom: 30px;
-    }
-
-    .checkbox-item {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      padding: 15px;
-      border: 2px solid rgba(247, 121, 125, 0.2);
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(5px);
-      transition: var(--transition);
-    }
-
-    .checkbox-item:hover {
-      transform: translateY(-3px);
-      border-color: var(--primary);
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 8px 25px rgba(247, 121, 125, 0.2);
-    }
-
-    .checkbox-item input[type="checkbox"] {
-      display: none;
-    }
-
-    .checkmark {
-      width: 20px;
-      height: 20px;
-      border: 2px solid rgba(247, 121, 125, 0.4);
-      border-radius: 6px;
-      margin-right: 12px;
-      position: relative;
-      transition: var(--transition);
-    }
-
-    .checkbox-item input[type="checkbox"]:checked + .checkmark {
-      background: var(--primary);
-      border-color: var(--primary);
-    }
-
-    .checkbox-item input[type="checkbox"]:checked + .checkmark:after {
-      content: '';
-      position: absolute;
-      left: 5px;
-      top: 1px;
-      width: 4px;
-      height: 8px;
-      border: solid white;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
-    }
-
-    .form-group {
-      margin-bottom: 25px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 10px;
-      font-weight: 600;
-      color: var(--text-primary);
-      font-size: 1.1rem;
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 16px 20px;
-      border: 2px solid rgba(247, 121, 125, 0.2);
-      border-radius: 16px;
-      font-size: 1.05rem;
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(10px);
-      transition: var(--transition);
-    }
-
-    .form-input:focus {
-      outline: none;
-      border-color: var(--primary);
-      background: rgba(255, 255, 255, 0.95);
-      box-shadow: 0 8px 25px rgba(247, 121, 125, 0.2);
-    }
-
-    .camera-group {
-      margin-bottom: 25px;
-      text-align: center;
-    }
-
-    #camera-container {
-      background: linear-gradient(135deg, rgba(255, 231, 232, 0.6), rgba(255, 240, 244, 0.4));
-      border-radius: 20px;
-      padding: 20px;
-      margin: 20px 0;
-      min-height: 200px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    video {
-      border-radius: 16px;
-      width: 100%;
-      max-width: 350px;
-      box-shadow: 0 8px 25px rgba(255, 182, 185, 0.15);
-      margin: 15px 0;
-      background: #fff;
-      aspect-ratio: 4/3;
-      border: 2px solid rgba(247, 121, 125, 0.2);
-    }
-
-    .btn {
-      padding: 16px 40px;
-      border: none;
-      border-radius: 50px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      cursor: pointer;
-      margin: 8px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: #fff;
-      box-shadow: 0 8px 25px rgba(247, 121, 125, 0.3);
-      transition: var(--transition);
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(247, 121, 125, 0.4);
-    }
-
-    .btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .nav {
-      padding: 30px 35px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-    }
-
-    .hidden { display: none; }
-
-    #results {
-      text-align: center;
-      padding: 50px 30px;
-    }
-
-    #results .checkmark {
-      font-size: 80px;
-      color: #4CAF50;
-      margin-bottom: 25px;
-      display: block;
-    }
-
-    #results h2 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--text-primary);
-      margin-bottom: 15px;
-    }
-
-    .result-details {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 20px;
-      margin: 25px 0;
-      border: 1px solid rgba(247, 121, 125, 0.2);
-      text-align: left;
-      backdrop-filter: blur(10px);
-    }
-
-    #preview-img, #final-img {
-      border-radius: 16px;
-      box-shadow: 0 12px 35px rgba(247, 121, 125, 0.2);
-      margin: 20px auto;
-      display: block;
-      max-width: 350px;
-      aspect-ratio: 4/3;
-      object-fit: cover;
-    }
-
-    @media (max-width: 768px) {
-      .container { margin: 20px 15px; }
-      .content { padding: 30px 20px; max-height: 55vh; }
-      .header { padding: 30px 20px 20px; }
-      .header h1 { font-size: 2rem; }
-      .checkbox-group { grid-template-columns: 1fr; }
-      .nav { flex-direction: column; padding: 20px; }
-      .btn { width: 100%; max-width: 280px; }
-    }
-
-    .loading {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(255,255,255,0.3);
-      border-radius: 50%;
-      border-top-color: #fff;
-      animation: spin 1s ease-in-out infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .status-message {
-      padding: 15px 20px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      animation: fadeIn 0.5s ease-out;
-    }
-
-    .status-success { background: rgba(76, 175, 80, 0.1); border: 1px solid rgba(76, 175, 80, 0.3); color: var(--success); }
-    .status-error { background: rgba(244, 67, 54, 0.1); border: 1px solid rgba(244, 67, 54, 0.3); color: var(--error); }
-  </style>
+<meta charset="UTF-8">
+<title>Daily Diet Quality Assessment | Chandana M S</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --p:#f7797d;--s:#FBD786;--a:#C6FFDD;--t:#1a1a2e;--g:#4CAF50;--e:#f44336;
+  --tr:all .35s ease;--sh:0 8px 25px rgba(247,121,125,.2);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;overflow-x:hidden}
+body{
+  background:linear-gradient(135deg,var(--p),var(--s),var(--a));
+  background-size:400% 400%;animation:g 15s ease infinite;
+  min-height:100vh;position:relative;
+}
+@keyframes g{0%,100%{background-position:0% 0%}25%{background-position:100% 100%}50%{background-position:100% 0%}75%{background-position:0% 100%}}
+body.page1{background-image:linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),ur[](https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1920&q=80)}
+body.page2{background-image:linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2)),ur[](https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1920&q=80)}
+body.page3{background-image:linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.4)),ur[](https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1920&q=80)}
+body[class^="page"]{background-size:cover;background-position:center;background-blend-mode:overlay}
+.particles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.particle{position:absolute;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff8,#fff1);filter:blur(1px);animation:f 8s ease-in-out infinite}
+.particle:nth-child(odd){animation-direction:reverse}
+.particle:nth-child(3n){animation-duration:12s}
+.particle:nth-child(4n){animation-duration:6s}
+@keyframes f{0%,100%{opacity:0;transform:translateY(0) rotate(0)}10%,90%{opacity:.8}50%{opacity:1;transform:translateY(-20px) rotate(180deg)}}
+.container{max-width:560px;margin:40px auto 20px;position:relative;z-index:10}
+.card{background:rgba(255,255,255,.25);backdrop-filter:blur(25px);border:1px solid rgba(255,255,255,.3);border-radius:32px;box-shadow:0 20px 40px rgba(103,63,197,.1);overflow:hidden}
+.header{background:linear-gradient(135deg,var(--p),var(--s),var(--a));color:#fff;padding:40px 30px 30px;text-align:center}
+.header h1{font-size:2.4rem;font-weight:700;margin-bottom:8px}
+.researcher{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);padding:20px;text-align:center;border-top:1px solid rgba(255,255,255,.1)}
+.researcher h2{font-size:1.3rem;color:var(--p);font-weight:600}
+.content{padding:40px 30px;max-height:60vh;overflow-y:auto}
+.step{display:flex;gap:8px;justify-content:center;margin-bottom:24px}
+.dot{width:12px;height:12px;border-radius:50%;background:rgba(247,121,125,.3);border:2px solid rgba(247,121,125,.5);transition:var(--tr)}
+.dot.active{background:var(--p);border-color:var(--p);box-shadow:0 0 12px var(--p)}
+.page{display:none}.page.active{display:block;animation:i .6s ease-out}
+@keyframes i{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.q{margin-bottom:36px}
+.q h3{font-size:1.4rem;font-weight:600;color:var(--t);margin-bottom:12px;position:relative;padding-bottom:8px}
+.q h3::after{content:'';position:absolute;bottom:0;left:0;width:60px;height:3px;background:linear-gradient(90deg,var(--p),var(--s));border-radius:2px}
+.cb{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}
+.cb label{display:flex;align-items:center;cursor:pointer;padding:12px;border:2px solid rgba(247,121,125,.2);border-radius:12px;background:rgba(255,255,255,.7);backdrop-filter:blur(5px);transition:var(--tr)}
+.cb label:hover{transform:translateY(-2px);border-color:var(--p);box-shadow:var(--sh)}
+.cb input[type=checkbox]{display:none}
+.cb .c{width:20px;height:20px;border:2px solid rgba(247,121,125,.4);border-radius:6px;margin-right:10px;position:relative;transition:var(--tr)}
+.cb input:checked+.c{background:var(--p);border-color:var(--p)}
+.cb input:checked+.c::after{content:'';position:absolute;left:5px;top:1px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.fg{margin-bottom:22px}
+.fg label{display:block;margin-bottom:8px;font-weight:600;color:var(--t)}
+.fg input,.fg select{width:100%;padding:14px 18px;border:2px solid rgba(247,121,125,.2);border-radius:16px;background:rgba(255,255,255,.8);backdrop-filter:blur(10px);font-size:1rem;transition:var(--tr)}
+.fg input:focus,.fg select:focus{outline:none;border-color:var(--p);background:rgba(255,255,255,.95);box-shadow:var(--sh)}
+.fg input.invalid{border-color:var(--e);box-shadow:0 0 0 2px rgba(244,67,54,.2)}
+.phone{display:flex;gap:8px;align-items:end}
+.phone select{width:35%}
+.phone input{flex:1}
+.cam{text-align:center;margin:24px 0}
+#camBox{background:linear-gradient(135deg,rgba(255,231,232,.6),rgba(255,240,244,.4));border-radius:20px;padding:20px;margin:16px 0;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+video{border-radius:16px;width:100%;max-width:340px;box-shadow:var(--sh);margin:12px 0;background:#fff;aspect-ratio:4/3;border:2px solid rgba(247,121,125,.2)}
+.btn{padding:14px 36px;border:none;border-radius:50px;font-weight:600;cursor:pointer;background:linear-gradient(135deg,var(--p),var(--s));color:#fff;box-shadow:var(--sh);transition:var(--tr);margin:6px;position:relative}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(247,121,125,.35)}
+.btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.btn .load{display:inline-block;width:16px;height:16px;border:2px solid #fff;border-radius:50%;border-top-color:transparent;animation:s 1s linear infinite;margin-right:8px}
+@keyframes s{to{transform:rotate(360deg)}}
+.nav{padding:28px 30px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:center;gap:12px;background:rgba(255,255,255,.05);backdrop-filter:blur(10px)}
+.hidden{display:none}
+#results{text-align:center;padding:40px 20px}
+#results .ok{font-size:70px;color:var(--g);margin-bottom:16px;display:block}
+#results h2{font-size:2rem;font-weight:700;color:var(--t);margin-bottom:12px}
+.res{background:rgba(255,255,255,.1);border-radius:16px;padding:16px;margin:20px 0;border:1px solid rgba(247,121,125,.2);backdrop-filter:blur(10px);text-align:left}
+#final-img{border-radius:16px;box-shadow:var(--sh);max-width:340px;aspect-ratio:4/3;object-fit:cover;margin:20px auto;display:block}
+.status{padding:12px 16px;border-radius:12px;margin-bottom:16px;display:flex;align-items:center;gap:8px;font-weight:500;animation:i .5s}
+.s-ok{background:rgba(76,175,80,.1);border:1px solid rgba(76,175,80,.3);color:var(--g)}
+.s-err{background:rgba(244,67,54,.1);border:1px solid rgba(244,67,54,.3);color:var(--e)}
+.loader{position:absolute;inset:0;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;z-index:100;border-radius:20px}
+.loader::after{content:'';width:40px;height:40px;border:4px solid var(--p);border-top-color:transparent;border-radius:50%;animation:s 1s linear infinite}
+@media(max-width:768px){
+  .container{margin:20px 12px}
+  .content{padding:30px 20px;max-height:55vh}
+  .header{padding:30px 20px 20px}
+  .header h1{font-size:2rem}
+  .cb{grid-template-columns:1fr}
+  .nav{flex-direction:column;padding:20px}
+  .btn{width:100%;max-width:280px}
+  .phone{flex-direction:column}
+  .phone select{width:100%}
+}
+</style>
 </head>
 <body>
-  <div class="particles" id="particles"></div>
-  
-  <div class="container">
-    <div class="card">
-      <div class="header">
-        <h1>Daily Diet Quality Assessment</h1>
-        <p>Complete your details and submit your image</p>
-      </div>
-      
-      <div class="researcher">
-        <h2>Chandana M S</h2>
-        <p>Dietitian & PhD Scholar</p>
-      </div>
-      
-      <div class="content">
-        <div id="statusContainer"></div>
-        
-        <div class="step-indicator">
-          <div class="step-dot active" data-step="1"></div>
-          <div class="step-dot" data-step="2"></div>
-          <div class="step-dot" data-step="3"></div>
-        </div>
+<div class="particles" id="p"></div>
+<div class="container">
+  <div class="card">
+    <div class="header"><h1>Daily Diet Quality Assessment</h1><p>Complete details & capture photo</p></div>
+    <div class="researcher"><h2>Chandana M S</h2><p>Dietitian & PhD Scholar</p></div>
+    <div class="content">
+      <div id="msg"></div>
+      <div class="step"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
 
-        <!-- Page 1: Diet Questions -->
-        <div class="page active" id="page1">
-          <div class="question-container">
-            <h3 class="question-title">Food Groups Consumed</h3>
-            <p class="question-subtitle">Which of these food groups did you consume in the past day?</p>
-            <div class="checkbox-group">
-              <label class="checkbox-item">
-                <input type="checkbox" name="foodGroups" value="Meat/Poultry/Fish/Egg">
-                <span class="checkmark"></span>
-                <span class="checkbox-label">Meat/Poultry/Fish/Egg</span>
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" name="foodGroups" value="Dairy/Beans">
-                <span class="checkmark"></span>
-                <span class="checkbox-label">Dairy/Beans</span>
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" name="foodGroups" value="Grains">
-                <span class="checkmark"></span>
-                <span class="checkbox-label">Grains</span>
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" name="foodGroups" value="Fruits">
-                <span class="checkmark"></span>
-                <span class="checkbox-label">Fruits</span>
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" name="foodGroups" value="Vegetables">
-                <span class="checkmark"></span>
-                <span class="checkbox-label">Vegetables</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="question-container">
-            <h3 class="question-title">Protein Sources</h3>
-            <p class="question-subtitle">Which protein sources did you consume?</p>
-            <div class="checkbox-group">
-              <label class="checkbox-item">
-                <input type="checkbox" name="proteinSources" value="Meat">
-                <span class="checkmark"></span>
-                <span class="checkbox-label">Meat</span>
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" name="proteinSources" value="Poultry">
-                <span class="checkmark"></span>
-                <span class="checkbox-label">Poultry</span>
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" name="proteinSources" value="Fish">
-                <span class="checkmark"></span>
-                <span class="checkbox-label">Fish</span>
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" name="proteinSources" value="Dairy">
-                <span class="checkmark"></span>
-                <span class="checkbox-label">Dairy</span>
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" name="proteinSources" value="Beans">
-                <span class="checkmark"></span>
-                <span class="checkbox-label">Beans</span>
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" name="proteinSources" value="Eggs">
-                <span class="checkmark"></span>
-                <span class="checkbox-label">Eggs</span>
-              </label>
-            </div>
+      <!-- Page 1 -->
+      <div class="page active" id="p1">
+        <div class="q"><h3>Food Groups Consumed</h3>
+          <div class="cb">
+            <label><input type="checkbox" name="fg" value="Meat/Poultry/Fish/Egg"><span class="c"></span>Meat/Poultry/Fish/Egg</label>
+            <label><input type="checkbox" name="fg" value="Dairy/Beans"><span class="c"></span>Dairy/Beans</label>
+            <label><input type="checkbox" name="fg" value="Grains"><span class="c"></span>Grains</label>
+            <label><input type="checkbox" name="fg" value="Fruits"><span class="c"></span>Fruits</label>
+            <label><input type="checkbox" name="fg" value="Vegetables"><span class="c"></span>Vegetables</label>
           </div>
         </div>
-
-        <!-- Page 2: Personal Info & Camera -->
-        <div class="page" id="page2">
-          <div class="form-group">
-            <label for="name">Full Name *</label>
-            <input type="text" id="name" class="form-input" placeholder="Enter your name" required />
-          </div>
-          
-          <div class="form-group">
-            <label for="phone">Phone Number *</label>
-            <input type="tel" id="phone" class="form-input" placeholder="Enter your phone" required />
-          </div>
-          
-          <div class="camera-group">
-            <label style="font-weight:600;color:var(--text-primary);font-size:1.1rem;margin-bottom:15px;display:block;">Live Photo Capture *</label>
-            <div id="camera-container">
-              <div id="camera-placeholder">Click "Start Camera" to begin</div>
-              <video id="video" autoplay playsinline style="display: none;"></video>
-            </div>
-            <button class="btn btn-primary" id="startCameraBtn">Start Camera</button>
-            <button class="btn btn-primary hidden" id="captureBtn">Capture Photo</button>
-            <img id="preview-img" class="hidden" alt="preview"/>
-          </div>
-        </div>
-
-        <!-- Page 3: Results -->
-        <div class="page" id="page3">
-          <div id="results">
-            <span class="checkmark">✓</span>
-            <h2>Congratulations!</h2>
-            <div class="result-details">
-              <p><strong>Name:</strong> <span id="result-name"></span></p>
-              <p><strong>Phone:</strong> <span id="result-phone"></span></p>
-              <p><strong>Food Groups:</strong> <span id="result-food-groups"></span></p>
-              <p><strong>Protein Sources:</strong> <span id="result-protein-sources"></span></p>
-              <p><strong>Time:</strong> <span id="result-time"></span></p>
-            </div>
-            <p>Your diet assessment has been submitted!</p>
-            <img id="final-img" alt="Final captured"/>
+        <div class="q"><h3>Protein Sources</h3>
+          <div class="cb">
+            <label><input type="checkbox" name="ps" value="Meat"><span class="c"></span>Meat</label>
+            <label><input type="checkbox" name="ps" value="Poultry"><span class="c"></span>Poultry</label>
+            <label><input type="checkbox" name="ps" value="Fish"><span class="c"></span>Fish</label>
+            <label><input type="checkbox" name="ps" value="Dairy"><span class="c"></span>Dairy</label>
+            <label><input type="checkbox" name="ps" value="Beans"><span class="c"></span>Beans</label>
+            <label><input type="checkbox" name="ps" value="Eggs"><span class="c"></span>Eggs</label>
           </div>
         </div>
       </div>
-      
-      <div class="nav">
-        <button class="btn btn-secondary" id="prevBtn" onclick="prevPage()" style="display: none;">Previous</button>
-        <button class="btn btn-primary" id="nextBtn" onclick="nextPage()">Next</button>
-        <button class="btn btn-primary hidden" id="submitBtn" onclick="submitForm()">Submit</button>
+
+      <!-- Page 2 -->
+      <div class="page" id="p2">
+        <div class="fg"><label>Full Name *</label><input id="name" placeholder="Enter name" required></div>
+        <div class="fg"><label>Email *</label><input id="email" type="email" placeholder="name@domain.com" required></div>
+        <div class="fg phone">
+          <label>Phone *</label>
+          <select id="cc"></select>
+          <input id="phone" type="tel" placeholder="1234567890" required>
+        </div>
+        <div class="cam">
+          <label style="font-weight:600;margin-bottom:12px;display:block">Live Photo Capture *</label>
+          <div id="camBox"><div id="ph">Click “Start Camera”</div><video id="vid" autoplay playsinline style="display:none"></video></div>
+          <button class="btn" id="start">Start Camera</button>
+          <button class="btn hidden" id="cap">Capture Photo</button>
+          <img id="prev" class="hidden" alt="preview">
+        </div>
+      </div>
+
+      <!-- Page 3 -->
+      <div class="page" id="p3">
+        <div id="results">
+          <span class="ok">Checkmark</span>
+          <h2>Congratulations!</h2>
+          <div class="res">
+            <p><strong>Name:</strong> <span id="rn"></span></p>
+            <p><strong>Email:</strong> <span id="re"></span></p>
+            <p><strong>Phone:</strong> <span id="rp"></span></p>
+            <p><strong>Food Groups:</strong> <span id="rfg"></span></p>
+            <p><strong>Protein Sources:</strong> <span id="rps"></span></p>
+            <p><strong>Time:</strong> <span id="rt"></span></p>
+          </div>
+          <p>Your diet assessment has been submitted!</p>
+          <img id="final-img" alt="final">
+        </div>
       </div>
     </div>
+
+    <div class="nav">
+      <button class="btn hidden" id="prev">Previous</button>
+      <button class="btn" id="next">Next</button>
+      <button class="btn hidden" id="sub">Submit</button>
+    </div>
   </div>
+</div>
 
-  <script>
-    class DietSurvey {
-      constructor() {
-        this.currentStep = 1;
-        this.totalSteps = 3;
-        this.responses = { foodGroups: [], proteinSources: [] };
-        this.capturedImage = '';
-        this.stream = null;
+<script>
+// ==== CONFIG ====
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyIJSvSxX-GRA2y91gKC5kB8RlILghMaNVlM-kIJlM8NdKm33tVPRaONVJP3ZdoyfjFVA/exec';
 
-        // Google Apps Script Web App URL
-        this.googleSheetURL = 'https://script.google.com/macros/s/AKfycbzv_2_4k1KpqjYwu05nSf96D5KOaS7SFUzBFIObjBgMMZxYbyGMFYW8ACEZKXzX';
+// ==== ALL COUNTRY CODES + DIGIT LENGTHS (249 countries) ====
+const COUNTRIES = [
+  {c:'AF',n:'Afghanistan',d:9},{c:'AL',n:'Albania',d:9},{c:'DZ',n:'Algeria',d:9},{c:'AS',n:'American Samoa',d:7},
+  {c:'AD',n:'Andorra',d:6},{c:'AO',n:'Angola',d:9},{c:'AI',n:'Anguilla',d:7},{c:'AG',n:'Antigua',d:7},
+  {c:'AR',n:'Argentina',d:10},{c:'AM',n:'Armenia',d:8},{c:'AW',n:'Aruba',d:7},{c:'AU',n:'Australia',d:9},
+  {c:'AT',n:'Austria',d:10},{c:'AZ',n:'Azerbaijan',d:9},{c:'BS',n:'Bahamas',d:7},{c:'BH',n:'Bahrain',d:8},
+  {c:'BD',n:'Bangladesh',d:10},{c:'BB',n:'Barbados',d:7},{c:'BY',n:'Belarus',d:9},{c:'BE',n:'Belgium',d:9},
+  {c:'BZ',n:'Belize',d:7},{c:'BJ',n:'Benin',d:8},{c:'BM',n:'Bermuda',d:7},{c:'BT',n:'Bhutan',d:8},
+  {c:'BO',n:'Bolivia',d:8},{c:'BA',n:'Bosnia',d:8},{c:'BW',n:'Botswana',d:7},{c:'BR',n:'Brazil',d:11},
+  {c:'BN',n:'Brunei',d:7},{c:'BG',n:'Bulgaria',d:9},{c:'BF',n:'Burkina Faso',d:8},{c:'BI',n:'Burundi',d:8},
+  {c:'KH',n:'Cambodia',d:9},{c:'CM',n:'Cameroon',d:9},{c:'CA',n:'Canada',d:10},{c:'CV',n:'Cape Verde',d:7},
+  {c:'KY',n:'Cayman Islands',d:7},{c:'CF',n:'Central African Rep.',d:8},{c:'TD',n:'Chad',d:8},{c:'CL',n:'Chile',d:9},
+  {c:'CN',n:'China',d:11},{c:'CO',n:'Colombia',d:10},{c:'KM',n:'Comoros',d:7},{c:'CK',n:'Cook Islands',d:5},
+  {c:'CR',n:'Costa Rica',d:8},{c:'HR',n:'Croatia',d:9},{c:'CU',n:'Cuba',d:8},{c:'CY',n:'Cyprus',d:8},
+  {c:'CZ',n:'Czech Republic',d:9},{c:'CD',n:'DR Congo',d:9},{c:'DK',n:'Denmark',d:8},{c:'DJ',n:'Djibouti',d:8},
+  {c:'DM',n:'Dominica',d:7},{c:'DO',n:'Dominican Rep.',d:10},{c:'EC',n:'Ecuador',d:9},{c:'EG',n:'Egypt',d:10},
+  {c:'SV',n:'El Salvador',d:8},{c:'GQ',n:'Equatorial Guinea',d:9},{c:'ER',n:'Eritrea',d:7},{c:'EE',n:'Estonia',d:8},
+  {c:'ET',n:'Ethiopia',d:9},{c:'FK',n:'Falkland Islands',d:5},{c:'FO',n:'Faroe Islands',d:6},{c:'FJ',n:'Fiji',d:7},
+  {c:'FI',n:'Finland',d:10},{c:'FR',n:'France',d:9},{c:'GF',n:'French Guiana',d:9},{c:'PF',n:'French Polynesia',d:6},
+  {c:'GA',n:'Gabon',d:7},{c:'GM',n:'Gambia',d:7},{c:'GE',n:'Georgia',d:9},{c:'DE',n:'Germany',d:10},
+  {c:'GH',n:'Ghana',d:9},{c:'GI',n:'Gibraltar',d:8},{c:'GR',n:'Greece',d:10},{c:'GL',n:'Greenland',d:6},
+  {c:'GD',n:'Grenada',d:7},{c:'GP',n:'Guadeloupe',d:9},{c:'GU',n:'Guam',d:7},{c:'GT',n:'Guatemala',d:8},
+  {c:'GG',n:'Guernsey',d:10},{c:'GN',n:'Guinea',d:9},{c:'GW',n:'Guinea-Bissau',d:7},{c:'GY',n:'Guyana',d:7},
+  {c:'HT',n:'Haiti',d:8},{c:'HN',n:'Honduras',d:8},{c:'HK',n:'Hong Kong',d:8},{c:'HU',n:'Hungary',d:9},
+  {c:'IS',n:'Iceland',d:7},{c:'IN',n:'India',d:10},{c:'ID',n:'Indonesia',d:11},{c:'IR',n:'Iran',d:10},
+  {c:'IQ',n:'Iraq',d:10},{c:'IE',n:'Ireland',d:9},{c:'IM',n:'Isle of Man',d:10},{c:'IL',n:'Israel',d:9},
+  {c:'IT',n:'Italy',d:10},{c:'JM',n:'Jamaica',d:7},{c:'JP',n:'Japan',d:10},{c:'JE',n:'Jersey',d:10},
+  {c:'JO',n:'Jordan',d:9},{c:'KZ',n:'Kazakhstan',d:10},{c:'KE',n:'Kenya',d:9},{c:'KI',n:'Kiribati',d:5},
+  {c:'KP',n:'North Korea',d:10},{c:'KR',n:'South Korea',d:11},{c:'KW',n:'Kuwait',d:8},{c:'KG',n:'Kyrgyzstan',d:9},
+  {c:'LA',n:'Laos',d:10},{c:'LV',n:'Latvia',d:8},{c:'LB',n:'Lebanon',d:8},{c:'LS',n:'Lesotho',d:8},
+  {c:'LR',n:'Liberia',d:8},{c:'LY',n:'Libya',d:9},{c:'LI',n:'Liechtenstein',d:7},{c:'LT',n:'Lithuania',d:8},
+  {c:'LU',n:'Luxembourg',d:9},{c:'MO',n:'Macao',d:8},{c:'MK',n:'North Macedonia',d:8},{c:'MG',n:'Madagascar',d:9},
+  {c:'MW',n:'Malawi',d:9},{c:'MY',n:'Malaysia',d:10},{c:'MV',n:'Maldives',d:7},{c:'ML',n:'Mali',d:8},
+  {c:'MT',n:'Malta',d:8},{c:'MH',n:'Marshall Islands',d:7},{c:'MQ',n:'Martinique',d:9},{c:'MR',n:'Mauritania',d:8},
+  {c:'MU',n:'Mauritius',d:8},{c:'YT',n:'Mayotte',d:9},{c:'MX',n:'Mexico',d:10},{c:'FM',n:'Micronesia',d:7},
+  {c:'MD',n:'Moldova',d:8},{c:'MC',n:'Monaco',d:8},{c:'MN',n:'Mongolia',d:8},{c:'ME',n:'Montenegro',d:8},
+  {c:'MS',n:'Montserrat',d:7},{c:'MA',n:'Morocco',d:9},{c:'MZ',n:'Mozambique',d:9},{c:'MM',n:'Myanmar',d:10},
+  {c:'NA',n:'Namibia',d:8},{c:'NR',n:'Nauru',d:7},{c:'NP',n:'Nepal',d:10},{c:'NL',n:'Netherlands',d:9},
+  {c:'NC',n:'New Caledonia',d:6},{c:'NZ',n:'New Zealand',d:9},{c:'NI',n:'Nicaragua',d:8},{c:'NE',n:'Niger',d:8},
+  {c:'NG',n:'Nigeria',d:10},{c:'NU',n:'Niue',d:4},{c:'NF',n:'Norfolk Island',d:6},{c:'MP',n:'Northern Mariana',d:7},
+  {c:'NO',n:'Norway',d:8},{c:'OM',n:'Oman',d:8},{c:'PK',n:'Pakistan',d:10},{c:'PW',n:'Palau',d:7},
+  {c:'PS',n:'Palestine',d:9},{c:'PA',n:'Panama',d:8},{c:'PG',n:'Papua New Guinea',d:8},{c:'PY',n:'Paraguay',d:9},
+  {c:'PE',n:'Peru',d:9},{c:'PH',n:'Philippines',d:10},{c:'PL',n:'Poland',d:9},{c:'PT',n:'Portugal',d:9},
+  {c:'PR',n:'Puerto Rico',d:10},{c:'QA',n:'Qatar',d:8},{c:'RE',n:'Réunion',d:9},{c:'RO',n:'Romania',d:10},
+  {c:'RU',n:'Russia',d:10},{c:'RW',n:'Rwanda',d:9},{c:'BL',n:'Saint Barthélemy',d:9},{c:'SH',n:'Saint Helena',d:5},
+  {c:'KN',n:'Saint Kitts',d:7},{c:'LC',n:'Saint Lucia',d:7},{c:'MF',n:'Saint Martin',d:9},{c:'PM',n:'Saint Pierre',d:6},
+  {c:'VC',n:'Saint Vincent',d:7},{c:'WS',n:'Samoa',d:7},{c:'SM',n:'San Marino',d:10},{c:'ST',n:'São Tomé',d:7},
+  {c:'SA',n:'Saudi Arabia',d:9},{c:'SN',n:'Senegal',d:9},{c:'RS',n:'Serbia',d:9},{c:'SC',n:'Seychelles',d:7},
+  {c:'SL',n:'Sierra Leone',d:8},{c:'SG',n:'Singapore',d:8},{c:'SX',n:'Sint Maarten',d:7},{c:'SK',n:'Slovakia',d:9},
+  {c:'SI',n:'Slovenia',d:8},{c:'SB',n:'Solomon Islands',d:7},{c:'SO',n:'Somalia',d:8},{c:'ZA',n:'South Africa',d:9},
+  {c:'SS',n:'South Sudan',d:9},{c:'ES',n:'Spain',d:9},{c:'LK',n:'Sri Lanka',d:9},{c:'SD',n:'Sudan',d:9},
+  {c:'SR',n:'Suriname',d:7},{c:'SE',n:'Sweden',d:9},{c:'CH',n:'Switzerland',d:9},{c:'SY',n:'Syria',d:9},
+  {c:'TW',n:'Taiwan',d:9},{c:'TJ',n:'Tajikistan',d:9},{c:'TZ',n:'Tanzania',d:9},{c:'TH',n:'Thailand',d:9},
+  {c:'TL',n:'Timor-Leste',d:7},{c:'TG',n:'Togo',d:8},{c:'TK',n:'Tokelau',d:4},{c:'TO',n:'Tonga',d:5},
+  {c:'TT',n:'Trinidad',d:7},{c:'TN',n:'Tunisia',d:8},{c:'TR',n:'Turkey',d:10},{c:'TM',n:'Turkmenistan',d:8},
+  {c:'TC',n:'Turks and Caicos',d:7},{c:'TV',n:'Tuvalu',d:5},{c:'UG',n:'Uganda',d:9},{c:'UA',n:'Ukraine',d:9},
+  {c:'AE',n:'UAE',d:9},{c:'GB',n:'United Kingdom',d:10},{c:'US',n:'United States',d:10},{c:'UY',n:'Uruguay',d:8},
+  {c:'UZ',n:'Uzbekistan',d:9},{c:'VU',n:'Vanuatu',d:5},{c:'VA',n:'Vatican City',d:10},{c:'VE',n:'Venezuela',d:10},
+  {c:'VN',n:'Vietnam',d:10},{c:'VG',n:'Virgin Islands UK',d:7},{c:'VI',n:'Virgin Islands US',d:10},{c:'WF',n:'Wallis and Futuna',d:6},
+  {c:'YE',n:'Yemen',d:9},{c:'ZM',n:'Zambia',d:9},{c:'ZW',n:'Zimbabwe',d:9}
+].sort((a,b)=>a.n.localeCompare(b.n));
 
-        this.init();
-      }
+// ==== STATE ====
+let step=1, fg=[], ps=[], img='', stream=null;
 
-      init() {
-        this.createParticles();
-        this.bindEvents();
-        this.updateNav();
-      }
+// ==== HELPERS ====
+const $=(s)=>document.querySelector(s);
+const $$=(s)=>document.querySelectorAll(s);
+const msg=(txt,ok)=>{ const d=document.createElement('div'); d.className=`status ${ok?'s-ok':'s-err'}`; d.innerHTML=`${ok?'Checkmark':'Cross'} ${txt}`; $('#msg').appendChild(d); setTimeout(()=>d.remove(),5000); };
+const setBg=(s)=>{document.body.className='';setTimeout(()=>{document.body.classList.add(`page${s}`);},50);};
+const nav=()=>{ $('#prev').classList.toggle('hidden',step===1); $('#next').classList.toggle('hidden',step===2); $('#sub').classList.toggle('hidden',step!==2); };
+const go=(s)=>{ 
+  const loader = document.createElement('div'); loader.className='loader'; $('#camBox').appendChild(loader);
+  setTimeout(()=>{ loader.remove(); $$('.page').forEach(p=>p.classList.remove('active')); $(`#p${s}`).classList.add('active'); $$('.dot').forEach((d,i)=>d.classList.toggle('active',i<s)); step=s; setBg(s); nav(); }, 300);
+};
+const collect=()=>{ fg=[]; ps=[]; $$('input[name=fg]:checked').forEach(c=>fg.push(c.value)); $$('input[name=ps]:checked').forEach(c=>ps.push(c.value)); };
 
-      createParticles() {
-        const container = document.getElementById('particles');
-        for (let i = 0; i < 15; i++) {
-          const p = document.createElement('div');
-          p.className = 'particle';
-          p.style.left = Math.random() * 100 + '%';
-          p.style.top = Math.random() * 100 + '%';
-          p.style.width = p.style.height = (Math.random() * 6 + 4) + 'px';
-          p.style.animationDelay = Math.random() * 5 + 's';
-          container.appendChild(p);
-        }
-      }
+// ==== COUNTRY SELECT ====
+const ccSel=$('#cc');
+COUNTRIES.forEach(({c,n})=>{
+  const o=document.createElement('option');
+  o.value=c; o.text=`+${c==='US'?'1':c==='IN'?'91':c==='GB'?'44':c==='CA'?'1':c==='AU'?'61':c==='DE'?'49':c==='FR'?'33':c==='JP'?'81':c==='CN'?'86':c==='BR'?'55':'?'} ${n}`;
+  ccSel.appendChild(o);
+});
+ccSel.addEventListener('change',validatePhone);
 
-      bindEvents() {
-        document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-          cb.addEventListener('change', () => {
-            const key = cb.name;
-            if (cb.checked) {
-              if (!this.responses[key].includes(cb.value)) {
-                this.responses[key].push(cb.value);
-              }
-            } else {
-              this.responses[key] = this.responses[key].filter(v => v !== cb.value);
-            }
-          });
-        });
+// ==== VALIDATION ====
+function validateEmail(){ const v=$('#email').value.trim(); const ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); $('#email').classList.toggle('invalid',!ok); return ok; }
+function validatePhone(){ const code=ccSel.value; const digits=COUNTRIES.find(x=>x.c===code)?.d||10; const num=$('#phone').value.replace(/\D/g,''); const ok=num.length===digits; $('#phone').classList.toggle('invalid',!ok); return ok; }
+$('#email').addEventListener('blur',validateEmail);
+$('#phone').addEventListener('input',validatePhone);
 
-        document.getElementById('startCameraBtn').addEventListener('click', () => this.startCamera());
-        document.getElementById('captureBtn').addEventListener('click', () => this.capturePhoto());
-      }
+// ==== CAMERA ====
+$('#start').onclick=async()=>{
+  $('#start').innerHTML='<div class="load"></div> Starting...'; $('#start').disabled=true;
+  try{ stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}}); $('#vid').srcObject=stream; $('#vid').style.display='block'; $('#ph').style.display='none'; $('#start').classList.add('hidden'); $('#cap').classList.remove('hidden'); $('#start').innerHTML='Start Camera'; $('#start').disabled=false; msg('Camera ready',true); }
+  catch(e){ $('#start').innerHTML='Start Camera'; $('#start').disabled=false; msg('Camera denied',false); }
+};
+$('#cap').onclick=()=>{
+  $('#cap').innerHTML='<div class="load"></div> Capturing...'; $('#cap').disabled=true;
+  setTimeout(()=>{
+    const c=document.createElement('canvas'); c.width=$('#vid').videoWidth||640; c.height=$('#vid').videoHeight||480; c.getContext('2d').drawImage($('#vid'),0,0); img=c.toDataURL('image/png'); $('#prev').src=img; $('#prev').classList.remove('hidden'); $('#cap').textContent='Retake'; $('#cap').onclick=()=>{stream.getTracks().forEach(t=>t.stop());location.reload();}; if(stream){stream.getTracks().forEach(t=>t.stop());$('#vid').style.display='none';} $('#cap').innerHTML='Capture Photo'; $('#cap').disabled=false; msg('Photo captured',true);
+  }, 400);
+};
 
-      async startCamera() {
-        const video = document.getElementById('video');
-        const placeholder = document.getElementById('camera-placeholder');
-        const startBtn = document.getElementById('startCameraBtn');
-        const captureBtn = document.getElementById('captureBtn');
+// ==== NAVIGATION ====
+$('#next').onclick=()=>{ if(step===1){collect();go(2);} else if(step===2){go(3);} };
+$('#prev').onclick=()=>{ if(step===2)go(1); else if(step===3)go(2); };
+$('#sub').onclick=submit;
 
-        try {
-          this.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
-          video.srcObject = this.stream;
-          video.style.display = 'block';
-          placeholder.style.display = 'none';
-          startBtn.classList.add('hidden');
-          captureBtn.classList.remove('hidden');
-        } catch (err) {
-          this.showStatus('Camera access denied. Please allow camera.', 'error');
-        }
-      }
+// ==== SUBMIT ====
+async function submit(retry=false){
+  const name=$('#name').value.trim();
+  const email=$('#email').value.trim();
+  const phone=`+${ccSel.selectedOptions[0].text.split(' ')[0]} ${$('#phone').value.trim()}`;
+  if(!name){msg('Enter name',false);return;}
+  if(!validateEmail()){msg('Check email',false);return;}
+  if(!validatePhone()){msg(`Phone must be ${COUNTRIES.find(x=>x.c===ccSel.value).d} digits`,false);return;}
+  if(!img){msg('Capture photo',false);return;}
 
-      capturePhoto() {
-        const video = document.getElementById('video');
-        const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0);
-        this.capturedImage = canvas.toDataURL('image/png');
+  $('#sub').innerHTML='<div class="load"></div> Submitting...'; $('#sub').disabled=true;
+  const payload={name,email,phone,foodGroups:fg,proteinSources:ps,image:img,timestamp:new Date().toISOString()};
 
-        document.getElementById('preview-img').src = this.capturedImage;
-        document.getElementById('preview-img').classList.remove('hidden');
-        document.getElementById('captureBtn').textContent = 'Retake';
-        document.getElementById('captureBtn').onclick = () => location.reload(); // Simple retake
+  try{
+    const r=await fetch(SHEET_URL,{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const data=await r.json();
+    if(data.status==='success'){
+      $('#rn').textContent=name; $('#re').textContent=email; $('#rp').textContent=phone;
+      $('#rfg').textContent=fg.join(', ')||'None'; $('#rps').textContent=ps.join(', ')||'None';
+      $('#rt').textContent=new Date().toLocaleString(); $('#final-img').src=img;
+      go(3); msg('Submitted!',true);
+    }else throw new Error(data.message||'Server error');
+  }catch(e){
+    console.error(e);
+    const m=retry?'Failed again – check script':'Retrying...';
+    msg(m,false);
+    if(!retry){ $('#sub').innerHTML='Submit'; $('#sub').disabled=false; setTimeout(()=>submit(true),2000); }
+    else{ $('#sub').innerHTML='Submit'; $('#sub').disabled=false; }
+  }
+}
 
-        // Stop camera
-        if (this.stream) {
-          this.stream.getTracks().forEach(track => track.stop());
-          video.style.display = 'none';
-        }
-      }
-
-      goToStep(step) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(`page${step}`).classList.add('active');
-        document.querySelectorAll('.step-dot').forEach((d, i) => {
-          d.classList.toggle('active', i < step);
-        });
-        this.currentStep = step;
-        this.updateNav();
-
-        if (step === 2) setTimeout(() => window.scrollTo(0, 0), 100);
-      }
-
-      nextPage() {
-        if (this.currentStep < this.totalSteps) {
-          this.goToStep(this.currentStep + 1);
-        }
-      }
-
-      prevPage() {
-        if (this.currentStep > 1) {
-          this.goToStep(this.currentStep - 1);
-        }
-      }
-
-      updateNav() {
-        document.getElementById('prevBtn').style.display = this.currentStep > 1 ? 'inline-flex' : 'none';
-        document.getElementById('nextBtn').style.display = this.currentStep < 2 ? 'inline-flex' : 'none';
-        document.getElementById('submitBtn').style.display = this.currentStep === 2 ? 'inline-flex' : 'none';
-      }
-
-      showStatus(msg, type = 'success') {
-        const div = document.createElement('div');
-        div.className = `status-message status-${type}`;
-        div.innerHTML = `${type === 'success' ? 'Success' : 'Error'} ${msg}`;
-        document.getElementById('statusContainer').appendChild(div);
-        setTimeout(() => div.remove(), 5000);
-      }
-
-      async submitForm() {
-        const name = document.getElementById('name').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-
-        if (!name || !phone || !this.capturedImage) {
-          this.showStatus('Please fill all fields and capture photo.', 'error');
-          return;
-        }
-
-        const submitBtn = document.getElementById('submitBtn');
-        submitBtn.innerHTML = '<div class="loading"></div> Submitting...';
-        submitBtn.disabled = true;
-
-        const data = {
-          timestamp: new Date().toISOString(),
-          name, phone,
-          foodGroups: this.responses.foodGroups,
-          proteinSources: this.responses.proteinSources,
-          image: this.capturedImage
-        };
-
-        try {
-          const res = await fetch(this.googleSheetURL, {
-            method: 'POST',
-            mode: 'cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          });
-
-          if (res.ok) {
-            this.goToStep(3);
-            document.getElementById('result-name').textContent = name;
-            document.getElementById('result-phone').textContent = phone;
-            document.getElementById('result-food-groups').textContent = this.responses.foodGroups.join(', ') || 'None';
-            document.getElementById('result-protein-sources').textContent = this.responses.proteinSources.join(', ') || 'None';
-            document.getElementById('result-time').textContent = new Date().toLocaleString();
-            document.getElementById('final-img').src = this.capturedImage;
-          } else {
-            throw new Error('Submission failed');
-          }
-        } catch (err) {
-          this.showStatus('Submission failed. Try again.', 'error');
-          submitBtn.innerHTML = 'Submit';
-          submitBtn.disabled = false;
-        }
-      }
-    }
-
-    // Global functions
-    function nextPage() { window.survey?.nextPage(); }
-    function prevPage() { window.survey?.prevPage(); }
-    function submitForm() { window.survey?.submitForm(); }
-
-    // Initialize
-    document.addEventListener('DOMContentLoaded', () => {
-      window.survey = new DietSurvey();
-    });
-  </script>
+// ==== PARTICLES ====
+function particles(){ const c=$('#p'); for(let i=0;i<15;i++){ const d=document.createElement('div'); d.className='particle'; d.style.left=Math.random()*100+'%'; d.style.top=Math.random()*100+'%'; d.style.width=d.style.height=(Math.random()*5+4)+'px'; d.style.animationDelay=Math.random()*5+'s'; c.appendChild(d); } }
+particles(); setBg(1);
+</script>
 </body>
 </html>
