@@ -116,35 +116,28 @@
     <script>
         let currentPage = 1;
         const totalPages = 4;
-        
         function changePage(direction) {
             document.getElementById('page' + currentPage).classList.add('hidden');
             currentPage += direction;
             document.getElementById('page' + currentPage).classList.remove('hidden');
-            
             document.getElementById('prevBtn').style.display = currentPage > 1 ? 'block' : 'none';
             document.getElementById('nextBtn').style.display = currentPage < totalPages ? 'block' : 'none';
             document.getElementById('submitBtn').style.display = currentPage === totalPages ? 'block' : 'none';
         }
-        
         function submit() {
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
             if (!name || !phone) { alert('Please fill all fields'); return; }
-            
             const food = document.querySelectorAll('input[name="food"]:checked').length * 3;
             const protein = Math.min(document.querySelectorAll('input[name="protein"]:checked').length, 1) * 5;
             const needs = document.querySelectorAll('input[name="needs"]:checked').length * 5;
             const amounts = document.querySelectorAll('input[name="amounts"]:checked').length * 6;
             const score = food + protein + needs + amounts;
-            
-            // Send to Google Sheets
             fetch('https://script.google.com/macros/s/AKfycbzv_2_4k1KpqjYwu05nSf96D5KOaS7SFUzBFIObjBgMMZxYbyGMFYW8ACEZKXzXMtBXrw/exec', {
                 method: 'POST',
                 mode: 'no-cors',
                 body: JSON.stringify({name, phone, score})
             });
-            
             document.getElementById('page4').classList.add('hidden');
             document.getElementById('results').classList.remove('hidden');
             document.getElementById('score').textContent = score;
