@@ -13,13 +13,14 @@ import {
 // Your web app's Firebase configuration
 // Replace these values with your actual Firebase config
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
-};
+    apiKey: "AIzaSyDpvaCnm_uq2z78tw_s6F4C6EzzBMn2m00",
+    authDomain: "diet-assesment.firebaseapp.com",
+    databaseURL: "https://diet-assesment-default-rtdb.firebaseio.com",
+    projectId: "diet-assesment",
+    storageBucket: "diet-assesment.firebasestorage.app",
+    messagingSenderId: "483037826596",
+    appId: "1:483037826596:web:3aae70d40eb5ddab9912b1"
+  };
 
 // Initialize Firebase
 let app;
