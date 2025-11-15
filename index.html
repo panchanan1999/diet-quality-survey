@@ -6,108 +6,221 @@
     <title>Daily Diet Quality Assessment</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="animated-background">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
     <!-- PAGE 1: Questionnaire + Researcher Block -->
     <div id="page1" class="page active">
         <div class="container">
             <header class="main-header">
-                <h1>Daily Diet Quality Assessment</h1>
-                <p>Complete details & capture photo</p>
+                <div class="header-icon">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="24" fill="url(#gradient1)"/>
+                        <path d="M24 12L28 20L36 21L30 27L31 35L24 31L17 35L18 27L12 21L20 20L24 12Z" fill="white"/>
+                        <defs>
+                            <linearGradient id="gradient1" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#667eea"/>
+                                <stop offset="1" stop-color="#764ba2"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h1 class="title-animate">Daily Diet Quality Assessment</h1>
+                <p class="subtitle-animate">Complete details & capture photo</p>
+                <div class="header-decoration"></div>
             </header>
 
-            <div class="researcher">
+            <div class="researcher card-float">
+                <div class="researcher-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="20" fill="url(#gradient2)"/>
+                        <path d="M20 12C16.69 12 14 14.69 14 18C14 21.31 16.69 24 20 24C23.31 24 26 21.31 26 18C26 14.69 23.31 12 20 12ZM20 26C15.58 26 12 27.79 12 30V32H28V30C28 27.79 24.42 26 20 26Z" fill="white"/>
+                        <defs>
+                            <linearGradient id="gradient2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#f093fb"/>
+                                <stop offset="1" stop-color="#f5576c"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
                 <h2>Chandana M S</h2>
                 <p>Dietitian & PhD Scholar</p>
             </div>
 
-            <form id="questionnaireForm" class="questionnaire-form">
+            <form id="questionnaireForm" class="questionnaire-form form-slide-in">
                 <!-- Question 1: Food Groups Consumed -->
                 <section class="question-section">
-                    <h3>Food Groups Consumed</h3>
-                    <p class="section-description">Select all that apply</p>
+                    <div class="question-header">
+                        <div class="question-number">01</div>
+                        <div>
+                            <h3>Food Groups Consumed</h3>
+                            <p class="section-description">Select all that apply</p>
+                        </div>
+                    </div>
                     <div class="cards-grid">
-                        <label class="card-checkbox">
+                        <label class="card-checkbox card-hover">
                             <input type="checkbox" name="foodGroups" value="meat-poultry-fish-eggs">
                             <span class="card-content">
+                                <span class="card-icon">🍖</span>
                                 <span class="card-title">Meat / Poultry / Fish / Eggs</span>
                             </span>
+                            <div class="card-checkmark">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
                         </label>
-                        <label class="card-checkbox">
+                        <label class="card-checkbox card-hover">
                             <input type="checkbox" name="foodGroups" value="dairy-beans">
                             <span class="card-content">
+                                <span class="card-icon">🥛</span>
                                 <span class="card-title">Dairy / Beans</span>
                             </span>
+                            <div class="card-checkmark">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
                         </label>
-                        <label class="card-checkbox">
+                        <label class="card-checkbox card-hover">
                             <input type="checkbox" name="foodGroups" value="grains">
                             <span class="card-content">
+                                <span class="card-icon">🌾</span>
                                 <span class="card-title">Grains</span>
                             </span>
+                            <div class="card-checkmark">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
                         </label>
-                        <label class="card-checkbox">
+                        <label class="card-checkbox card-hover">
                             <input type="checkbox" name="foodGroups" value="fruits">
                             <span class="card-content">
+                                <span class="card-icon">🍎</span>
                                 <span class="card-title">Fruits</span>
                             </span>
+                            <div class="card-checkmark">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
                         </label>
-                        <label class="card-checkbox">
+                        <label class="card-checkbox card-hover">
                             <input type="checkbox" name="foodGroups" value="vegetables">
                             <span class="card-content">
+                                <span class="card-icon">🥬</span>
                                 <span class="card-title">Vegetables</span>
                             </span>
+                            <div class="card-checkmark">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
                         </label>
                     </div>
                 </section>
 
                 <!-- Question 2: Protein Sources -->
                 <section class="question-section">
-                    <h3>Protein Sources</h3>
-                    <p class="section-description">Select all that apply</p>
+                    <div class="question-header">
+                        <div class="question-number">02</div>
+                        <div>
+                            <h3>Protein Sources</h3>
+                            <p class="section-description">Select all that apply</p>
+                        </div>
+                    </div>
                     <div class="cards-grid">
-                        <label class="card-checkbox">
+                        <label class="card-checkbox card-hover">
                             <input type="checkbox" name="proteinSources" value="meat">
                             <span class="card-content">
+                                <span class="card-icon">🥩</span>
                                 <span class="card-title">Meat</span>
                             </span>
+                            <div class="card-checkmark">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
                         </label>
-                        <label class="card-checkbox">
+                        <label class="card-checkbox card-hover">
                             <input type="checkbox" name="proteinSources" value="poultry">
                             <span class="card-content">
+                                <span class="card-icon">🍗</span>
                                 <span class="card-title">Poultry</span>
                             </span>
+                            <div class="card-checkmark">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
                         </label>
-                        <label class="card-checkbox">
+                        <label class="card-checkbox card-hover">
                             <input type="checkbox" name="proteinSources" value="fish">
                             <span class="card-content">
+                                <span class="card-icon">🐟</span>
                                 <span class="card-title">Fish</span>
                             </span>
+                            <div class="card-checkmark">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
                         </label>
-                        <label class="card-checkbox">
+                        <label class="card-checkbox card-hover">
                             <input type="checkbox" name="proteinSources" value="dairy">
                             <span class="card-content">
+                                <span class="card-icon">🧀</span>
                                 <span class="card-title">Dairy</span>
                             </span>
+                            <div class="card-checkmark">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
                         </label>
-                        <label class="card-checkbox">
+                        <label class="card-checkbox card-hover">
                             <input type="checkbox" name="proteinSources" value="beans">
                             <span class="card-content">
+                                <span class="card-icon">🫘</span>
                                 <span class="card-title">Beans</span>
                             </span>
+                            <div class="card-checkmark">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
                         </label>
-                        <label class="card-checkbox">
+                        <label class="card-checkbox card-hover">
                             <input type="checkbox" name="proteinSources" value="eggs">
                             <span class="card-content">
+                                <span class="card-icon">🥚</span>
                                 <span class="card-title">Eggs</span>
                             </span>
+                            <div class="card-checkmark">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
                         </label>
                     </div>
                 </section>
 
                 <div class="form-actions">
-                    <button type="button" id="nextBtn" class="btn btn-primary">Next</button>
+                    <button type="button" id="nextBtn" class="btn btn-primary btn-pulse">
+                        <span>Next</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
                 </div>
             </form>
         </div>
@@ -117,73 +230,110 @@
     <div id="page2" class="page">
         <div class="container">
             <header class="main-header">
-                <h1>Personal Information</h1>
-                <p>Complete your details & capture photo</p>
+                <div class="header-icon">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="24" fill="url(#gradient3)"/>
+                        <path d="M24 14C18.48 14 14 18.48 14 24C14 29.52 18.48 34 24 34C29.52 34 34 29.52 34 24C34 18.48 29.52 14 24 14ZM24 32C19.59 32 16 28.41 16 24C16 19.59 19.59 16 24 16C28.41 16 32 19.59 32 24C32 28.41 28.41 32 24 32ZM25 19H23V23H19V25H23V29H25V25H29V23H25V19Z" fill="white"/>
+                        <defs>
+                            <linearGradient id="gradient3" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#4facfe"/>
+                                <stop offset="1" stop-color="#00f2fe"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h1 class="title-animate">Personal Information</h1>
+                <p class="subtitle-animate">Complete your details & capture photo</p>
+                <div class="header-decoration"></div>
             </header>
 
-            <form id="personalInfoForm" class="personal-info-form">
+            <form id="personalInfoForm" class="personal-info-form form-slide-in">
                 <div class="form-group">
-                    <label for="fullName">Full Name <span class="required">*</span></label>
-                    <input 
-                        type="text" 
-                        id="fullName" 
-                        name="fullName" 
-                        required 
-                        placeholder="Enter your full name"
-                        autocomplete="name"
-                    >
+                    <label for="fullName">
+                        <span class="label-icon">👤</span>
+                        Full Name <span class="required">*</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="text" 
+                            id="fullName" 
+                            name="fullName" 
+                            required 
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                        >
+                        <div class="input-focus-line"></div>
+                    </div>
                     <span class="error-message" id="fullNameError"></span>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email <span class="required">*</span></label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        required 
-                        placeholder="Enter your email address"
-                        autocomplete="email"
-                    >
+                    <label for="email">
+                        <span class="label-icon">✉️</span>
+                        Email <span class="required">*</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            required 
+                            placeholder="Enter your email address"
+                            autocomplete="email"
+                        >
+                        <div class="input-focus-line"></div>
+                    </div>
                     <span class="error-message" id="emailError"></span>
                 </div>
 
                 <div class="form-group phone-group">
-                    <label for="phone">Phone Number <span class="required">*</span></label>
+                    <label for="phone">
+                        <span class="label-icon">📱</span>
+                        Phone Number <span class="required">*</span>
+                    </label>
                     <div class="phone-input-wrapper">
-                        <select id="countryCode" name="countryCode" required>
-                            <option value="">Code</option>
-                            <option value="+1">+1 (US/CA)</option>
-                            <option value="+44">+44 (UK)</option>
-                            <option value="+91">+91 (India)</option>
-                            <option value="+61">+61 (Australia)</option>
-                            <option value="+49">+49 (Germany)</option>
-                            <option value="+33">+33 (France)</option>
-                            <option value="+81">+81 (Japan)</option>
-                            <option value="+86">+86 (China)</option>
-                            <option value="+7">+7 (Russia)</option>
-                            <option value="+55">+55 (Brazil)</option>
-                            <option value="+34">+34 (Spain)</option>
-                            <option value="+39">+39 (Italy)</option>
-                            <option value="+82">+82 (South Korea)</option>
-                            <option value="+27">+27 (South Africa)</option>
-                            <option value="+971">+971 (UAE)</option>
-                        </select>
-                        <input 
-                            type="tel" 
-                            id="phoneNumber" 
-                            name="phoneNumber" 
-                            required 
-                            placeholder="Enter phone number"
-                            autocomplete="tel"
-                        >
+                        <div class="input-wrapper">
+                            <select id="countryCode" name="countryCode" required>
+                                <option value="">Code</option>
+                                <option value="+1">+1 (US/CA)</option>
+                                <option value="+44">+44 (UK)</option>
+                                <option value="+91">+91 (India)</option>
+                                <option value="+61">+61 (Australia)</option>
+                                <option value="+49">+49 (Germany)</option>
+                                <option value="+33">+33 (France)</option>
+                                <option value="+81">+81 (Japan)</option>
+                                <option value="+86">+86 (China)</option>
+                                <option value="+7">+7 (Russia)</option>
+                                <option value="+55">+55 (Brazil)</option>
+                                <option value="+34">+34 (Spain)</option>
+                                <option value="+39">+39 (Italy)</option>
+                                <option value="+82">+82 (South Korea)</option>
+                                <option value="+27">+27 (South Africa)</option>
+                                <option value="+971">+971 (UAE)</option>
+                            </select>
+                            <div class="input-focus-line"></div>
+                        </div>
+                        <div class="input-wrapper">
+                            <input 
+                                type="tel" 
+                                id="phoneNumber" 
+                                name="phoneNumber" 
+                                required 
+                                placeholder="Enter phone number"
+                                autocomplete="tel"
+                            >
+                            <div class="input-focus-line"></div>
+                        </div>
                     </div>
                     <span class="error-message" id="phoneError"></span>
                 </div>
 
                 <!-- Photo Capture Section -->
                 <div class="form-group photo-section">
-                    <label>User Photo <span class="required">*</span></label>
+                    <label>
+                        <span class="label-icon">📷</span>
+                        User Photo <span class="required">*</span>
+                    </label>
                     <div class="photo-capture-wrapper">
                         <div id="cameraSection" class="camera-section">
                             <video id="video" autoplay playsinline style="display: none;"></video>
@@ -191,17 +341,41 @@
                             
                             <div id="cameraPreview" class="camera-preview">
                                 <img id="capturedImage" alt="Captured photo" style="display: none;">
-                                <p class="preview-placeholder" id="previewPlaceholder">No photo captured</p>
+                                <div class="preview-placeholder" id="previewPlaceholder">
+                                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                                        <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5"/>
+                                        <path d="M32 20V32M32 32L26 26M32 32L38 26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    <p>No photo captured</p>
+                                </div>
                             </div>
 
                             <div class="camera-controls">
-                                <button type="button" id="startCameraBtn" class="btn btn-secondary">Start Camera</button>
-                                <button type="button" id="captureBtn" class="btn btn-secondary" style="display: none;">Capture Photo</button>
-                                <button type="button" id="retakeBtn" class="btn btn-text" style="display: none;">Retake</button>
+                                <button type="button" id="startCameraBtn" class="btn btn-secondary btn-icon">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path d="M10 2C5.58 2 2 5.58 2 10C2 14.42 5.58 18 10 18C14.42 18 18 14.42 18 10C18 5.58 14.42 2 10 2ZM10 16C6.69 16 4 13.31 4 10C4 6.69 6.69 4 10 4C13.31 4 16 6.69 16 10C16 13.31 13.31 16 10 16ZM9 6V10H5V12H9V16H11V12H15V10H11V6H9Z" fill="currentColor"/>
+                                    </svg>
+                                    <span>Start Camera</span>
+                                </button>
+                                <button type="button" id="captureBtn" class="btn btn-primary btn-icon" style="display: none;">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                    <span>Capture Photo</span>
+                                </button>
+                                <button type="button" id="retakeBtn" class="btn btn-text btn-icon" style="display: none;">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path d="M3 10C3 6.13 6.13 3 10 3C11.5 3 12.87 3.5 14 4.33L12.5 5.83H16V2.33L14.5 3.83C12.87 2.5 11.5 2 10 2C5.58 2 2 5.58 2 10C2 14.42 5.58 18 10 18C13.5 18 16.5 15.83 17.5 12.67H15.5C14.67 15 12.5 16.67 10 16.67C6.5 16.67 3.67 13.83 3.67 10.33H3V10Z" fill="currentColor"/>
+                                    </svg>
+                                    <span>Retake</span>
+                                </button>
                             </div>
 
                             <div class="file-upload-fallback">
                                 <label for="fileUpload" class="upload-label">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path d="M10 2V12M10 2L6 6M10 2L14 6M2 14V16C2 17.1 2.9 18 4 18H16C17.1 18 18 17.1 18 16V14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
                                     <span>Or upload from device</span>
                                     <input 
                                         type="file" 
@@ -217,8 +391,13 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="button" id="backBtn" class="btn btn-secondary">Back</button>
-                    <button type="submit" id="submitBtn" class="btn btn-primary">
+                    <button type="button" id="backBtn" class="btn btn-secondary">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Back</span>
+                    </button>
+                    <button type="submit" id="submitBtn" class="btn btn-primary btn-submit">
                         <span id="submitBtnText">Submit</span>
                         <span id="submitLoader" class="loader" style="display: none;"></span>
                     </button>
@@ -233,33 +412,45 @@
             <div class="results-page">
                 <!-- Success Message -->
                 <div class="success-header">
-                    <div class="success-icon">
-                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="32" cy="32" r="32" fill="#10B981"/>
-                            <path d="M20 32L28 40L44 24" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <div class="success-icon success-bounce">
+                        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="40" cy="40" r="40" fill="url(#successGradient)"/>
+                            <path d="M25 40L35 50L55 30" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <defs>
+                                <linearGradient id="successGradient" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#10B981"/>
+                                    <stop offset="1" stop-color="#059669"/>
+                                </linearGradient>
+                            </defs>
                         </svg>
                     </div>
-                    <h1>Submission Successful!</h1>
-                    <p>Your diet quality assessment has been saved.</p>
+                    <h1 class="success-title">Submission Successful!</h1>
+                    <p class="success-subtitle">Your diet quality assessment has been saved.</p>
+                    <div class="success-decoration"></div>
                 </div>
 
                 <!-- User Information -->
-                <div class="results-card">
-                    <h2>Your Information</h2>
+                <div class="results-card card-fade-in">
+                    <div class="card-header">
+                        <h2>
+                            <span class="card-icon">👤</span>
+                            Your Information
+                        </h2>
+                    </div>
                     <div class="info-grid">
-                        <div class="info-item">
+                        <div class="info-item info-slide-in" style="animation-delay: 0.1s">
                             <span class="info-label">Name:</span>
                             <span class="info-value" id="resultName">-</span>
                         </div>
-                        <div class="info-item">
+                        <div class="info-item info-slide-in" style="animation-delay: 0.2s">
                             <span class="info-label">Email:</span>
                             <span class="info-value" id="resultEmail">-</span>
                         </div>
-                        <div class="info-item">
+                        <div class="info-item info-slide-in" style="animation-delay: 0.3s">
                             <span class="info-label">Phone:</span>
                             <span class="info-value" id="resultPhone">-</span>
                         </div>
-                        <div class="info-item">
+                        <div class="info-item info-slide-in" style="animation-delay: 0.4s">
                             <span class="info-label">Submitted:</span>
                             <span class="info-value" id="resultTimestamp">-</span>
                         </div>
@@ -267,8 +458,13 @@
                 </div>
 
                 <!-- Score Table -->
-                <div class="results-card">
-                    <h2>Score Table</h2>
+                <div class="results-card card-fade-in" style="animation-delay: 0.2s">
+                    <div class="card-header">
+                        <h2>
+                            <span class="card-icon">📊</span>
+                            Score Table
+                        </h2>
+                    </div>
                     <div class="table-wrapper">
                         <table class="score-table">
                             <thead>
@@ -278,17 +474,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr class="table-row-animate" style="animation-delay: 0.1s">
                                     <td>Food Groups Consumed</td>
-                                    <td id="scoreQuestion1">0</td>
+                                    <td><span class="score-badge" id="scoreQuestion1">0</span></td>
                                 </tr>
-                                <tr>
+                                <tr class="table-row-animate" style="animation-delay: 0.2s">
                                     <td>Protein Sources</td>
-                                    <td id="scoreQuestion2">0</td>
+                                    <td><span class="score-badge" id="scoreQuestion2">0</span></td>
                                 </tr>
-                                <tr class="total-row">
+                                <tr class="total-row table-row-animate" style="animation-delay: 0.3s">
                                     <td><strong>Total Score</strong></td>
-                                    <td><strong id="scoreTotal">0</strong></td>
+                                    <td><strong><span class="score-badge total-badge" id="scoreTotal">0</span></strong></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -296,31 +492,51 @@
                 </div>
 
                 <!-- Questionnaire Answers as Blue Tick Chips -->
-                <div class="results-card">
-                    <h2>Food Groups Consumed</h2>
+                <div class="results-card card-fade-in" style="animation-delay: 0.3s">
+                    <div class="card-header">
+                        <h2>
+                            <span class="card-icon">🥗</span>
+                            Food Groups Consumed
+                        </h2>
+                    </div>
                     <div id="foodGroupsChips" class="chips-container" role="list">
                         <!-- Blue tick chips will be inserted here -->
                     </div>
                 </div>
 
-                <div class="results-card">
-                    <h2>Protein Sources</h2>
+                <div class="results-card card-fade-in" style="animation-delay: 0.4s">
+                    <div class="card-header">
+                        <h2>
+                            <span class="card-icon">🍖</span>
+                            Protein Sources
+                        </h2>
+                    </div>
                     <div id="proteinSourcesChips" class="chips-container" role="list">
                         <!-- Blue tick chips will be inserted here -->
                     </div>
                 </div>
 
                 <!-- Uploaded Photo -->
-                <div class="results-card">
-                    <h2>Your Photo</h2>
-                    <div class="photo-display">
+                <div class="results-card card-fade-in" style="animation-delay: 0.5s">
+                    <div class="card-header">
+                        <h2>
+                            <span class="card-icon">📸</span>
+                            Your Photo
+                        </h2>
+                    </div>
+                    <div class="photo-display photo-zoom-in">
                         <img id="resultPhoto" src="" alt="Submitted photo" style="display: none;">
                     </div>
                 </div>
 
                 <!-- Action Buttons -->
                 <div class="form-actions">
-                    <button type="button" id="submitAnotherBtn" class="btn btn-primary">Submit Another Response</button>
+                    <button type="button" id="submitAnotherBtn" class="btn btn-primary btn-pulse">
+                        <span>Submit Another Response</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M10 2V10M10 2L6 6M10 2L14 6M2 14V16C2 17.1 2.9 18 4 18H16C17.1 18 18 17.1 18 16V14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
