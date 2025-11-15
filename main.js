@@ -1,4 +1,4 @@
-// --- Page handling and validation ---
+// Page transition and animation setup
 const questionnairePage = document.getElementById('page1');
 const detailsPage = document.getElementById('page2');
 const nextBtn = document.getElementById('nextBtn');
@@ -15,26 +15,35 @@ const submitBtn = document.getElementById('submitBtn');
 const submitLoader = document.getElementById('submitLoader');
 const submitText = document.getElementById('submitText');
 const successMessage = document.getElementById('successMessage');
-
-// Camera elements
 const video = document.getElementById('video');
 const captureBtn = document.getElementById('captureBtn');
 const photoCanvas = document.getElementById('photoCanvas');
 const photoPreview = document.getElementById('photoPreview');
 
-// Replace with your Google Apps Script endpoint
-const GOOGLE_SHEET_API = "https://script.google.com/macros/s/AKfycbx4aFr7-zGcMAqB6CvZFzi4JVnOtZ2w-9gT9V6BfEZS_q6dO-Q1asjIm7wtHrtSIjg6/exec";
+// Replace with your Google Apps Script endpoint:
+const GOOGLE_SHEET_API = "YOUR_GOOGLE_APPS_SCRIPT_WEBAPP_URL";
 
-// Utility for page transition
+// Animated Page Transition Utility
 function goToPage(show, hide) {
   hide.classList.remove('page-active');
-  setTimeout(function() {
+  setTimeout(() => {
     show.classList.add('page-active');
     hide.style.display = "none";
     show.style.display = "block";
-  }, 350);
+  }, 320); // sync with style transition duration
 }
 
+// Animated Button Ripple effect helper
+document.querySelectorAll('.btn.ripple').forEach(btn => {
+  btn.addEventListener('click', function (e) {
+    btn.classList.remove('clicked');
+    void btn.offsetWidth; // trigger reflow
+    btn.classList.add('clicked');
+    setTimeout(() => btn.classList.remove('clicked'), 400);
+  });
+});
+
+// Questionnaire validation
 function validateCheckboxSection(groupId, errorElem) {
   const checkboxes = document.querySelectorAll(`#${groupId} input[type="checkbox"]`);
   let checkedItems = Array.from(checkboxes).filter(c => c.checked);
@@ -56,6 +65,7 @@ backBtn.addEventListener('click', () => {
   goToPage(questionnairePage, detailsPage);
 });
 
+// Name/phone validation
 function validateName(name) {
   if (!name.trim()) {
     nameError.textContent = "Name is required.";
@@ -87,7 +97,7 @@ function validatePhone(phone) {
   return true;
 }
 
-// Camera capture, to preview image (not sent to sheet)
+// Live Camera Preview (not sent to backend)
 function startCamera() {
   if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
@@ -105,19 +115,30 @@ captureBtn.addEventListener('click', () => {
 });
 window.addEventListener('DOMContentLoaded', startCamera);
 
+// Animated input fields
+[nameInput, phoneInput].forEach(input => {
+  input.addEventListener('focus', function (e) {
+    input.parentNode.querySelector('.input-focus').style.width = '100%';
+  });
+  input.addEventListener('blur', function (e) {
+    setTimeout(() => {
+      input.parentNode.querySelector('.input-focus').style.width = '0';
+    }, 240);
+  });
+});
+
+// Form submit: only sends questionnaire answers and user details (no photo)
 detailsForm.addEventListener('submit', async function(e) {
   e.preventDefault();
   let name = nameInput.value.trim();
   let phone = phoneInput.value.trim();
   let isNameValid = validateName(name);
   let isPhoneValid = validatePhone(phone);
-
   if (!isNameValid || !isPhoneValid) {
     if (!isNameValid) nameInput.focus();
     else phoneInput.focus();
     return;
   }
-
   submitBtn.disabled = true;
   submitText.style.display = 'none';
   submitLoader.style.display = 'inline-block';
@@ -126,13 +147,12 @@ detailsForm.addEventListener('submit', async function(e) {
   const proteins = Array.from(document.querySelectorAll('#proteinSources input[type="checkbox"]:checked')).map(cb => cb.value);
   let totalScore = foods.length + proteins.length;
 
-  // Prepare data for sheet (no photo)
   const data = {
-    name: name,
+    name,
     phone: `+91${phone}`,
     foodGroups: foods,
     proteinSources: proteins,
-    totalScore: totalScore
+    totalScore
   };
 
   try {
@@ -144,8 +164,9 @@ detailsForm.addEventListener('submit', async function(e) {
     if (response.ok) {
       detailsForm.style.display = 'none';
       successMessage.style.display = 'block';
-      setTimeout(() => successMessage.style.animation = 'none', 1000);
-      detailsForm.reset(); questionnaireForm.reset();
+      setTimeout(() => { successMessage.style.animation = 'none'; }, 900);
+      detailsForm.reset();
+      questionnaireForm.reset();
       nameInput.classList.remove('error'); phoneInput.classList.remove('error');
     } else {
       alert("Failed to submit. Please try again.");
