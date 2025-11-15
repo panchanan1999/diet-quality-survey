@@ -21,7 +21,7 @@ const photoCanvas = document.getElementById('photoCanvas');
 const photoPreview = document.getElementById('photoPreview');
 
 // Replace with your Google Apps Script endpoint:
-const GOOGLE_SHEET_API = "YOUR_GOOGLE_APPS_SCRIPT_WEBAPP_URL";
+const GOOGLE_SHEET_API = "https://script.google.com/macros/s/AKfycbx4aFr7-zGcMAqB6CvZFzi4JVnOtZ2w-9gT9V6BfEZS_q6dO-Q1asjIm7wtHrtSIjg6/exec";
 
 // Animated Page Transition Utility
 function goToPage(show, hide) {
