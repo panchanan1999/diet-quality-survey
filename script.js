@@ -129,17 +129,60 @@ function handleCheckboxChange(e) {
     const checkbox = e.target;
     const name = checkbox.name;
     const value = checkbox.value;
+    const card = checkbox.closest('.card-checkbox');
 
     if (checkbox.checked) {
         if (!formData[name].includes(value)) {
             formData[name].push(value);
         }
+        // Add ripple effect
+        addRippleEffect(card);
     } else {
         formData[name] = formData[name].filter(item => item !== value);
     }
 
     // Calculate scores
     calculateScores();
+}
+
+// Add ripple effect to cards
+function addRippleEffect(element) {
+    const ripple = document.createElement('div');
+    ripple.style.cssText = `
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(102, 126, 234, 0.3);
+        width: 100px;
+        height: 100px;
+        margin-top: -50px;
+        margin-left: -50px;
+        top: 50%;
+        left: 50%;
+        pointer-events: none;
+        animation: ripple 0.6s ease-out;
+    `;
+    
+    element.style.position = 'relative';
+    element.appendChild(ripple);
+    
+    setTimeout(() => {
+        ripple.remove();
+    }, 600);
+}
+
+// Add ripple animation to style if not exists
+if (!document.getElementById('ripple-style')) {
+    const style = document.createElement('style');
+    style.id = 'ripple-style';
+    style.textContent = `
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
 }
 
 // Calculate Scores
@@ -527,65 +570,105 @@ function formatDisplayName(value) {
         .join(' / ');
 }
 
+// Animate number counting
+function animateNumber(element, target, duration = 1000) {
+    const start = 0;
+    const increment = target / (duration / 16);
+    let current = start;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            element.textContent = target;
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(current);
+        }
+    }, 16);
+}
+
 // Show Results Page
 function showResultsPage() {
     // Show page 3
     showPage(3);
     
-    // Display user information
-    document.getElementById('resultName').textContent = formData.name;
-    document.getElementById('resultEmail').textContent = formData.email;
-    document.getElementById('resultPhone').textContent = formData.phone;
-    
-    // Format timestamp
-    const timestamp = formData.timestamp || new Date();
-    const formattedDate = new Intl.DateTimeFormat('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-    }).format(timestamp);
-    document.getElementById('resultTimestamp').textContent = formattedDate;
+    // Display user information with animation
+    setTimeout(() => {
+        document.getElementById('resultName').textContent = formData.name;
+        document.getElementById('resultEmail').textContent = formData.email;
+        document.getElementById('resultPhone').textContent = formData.phone;
+        
+        // Format timestamp
+        const timestamp = formData.timestamp || new Date();
+        const formattedDate = new Intl.DateTimeFormat('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        }).format(timestamp);
+        document.getElementById('resultTimestamp').textContent = formattedDate;
+    }, 200);
 
-    // Display scores in table
-    document.getElementById('scoreQuestion1').textContent = formData.score.question1;
-    document.getElementById('scoreQuestion2').textContent = formData.score.question2;
-    document.getElementById('scoreTotal').textContent = formData.score.total;
+    // Animate scores in table
+    setTimeout(() => {
+        const score1El = document.getElementById('scoreQuestion1');
+        const score2El = document.getElementById('scoreQuestion2');
+        const totalEl = document.getElementById('scoreTotal');
+        
+        animateNumber(score1El, formData.score.question1, 800);
+        setTimeout(() => {
+            animateNumber(score2El, formData.score.question2, 800);
+        }, 200);
+        setTimeout(() => {
+            animateNumber(totalEl, formData.score.total, 1000);
+        }, 400);
+    }, 400);
 
-    // Display Food Groups as Blue Tick Chips
+    // Display Food Groups as Blue Tick Chips with staggered animation
     const foodGroupsContainer = document.getElementById('foodGroupsChips');
     foodGroupsContainer.innerHTML = '';
     
     if (formData.foodGroups.length > 0) {
-        formData.foodGroups.forEach(group => {
-            const chip = createBlueTickChip(formatDisplayName(group));
-            foodGroupsContainer.appendChild(chip);
+        formData.foodGroups.forEach((group, index) => {
+            setTimeout(() => {
+                const chip = createBlueTickChip(formatDisplayName(group));
+                foodGroupsContainer.appendChild(chip);
+            }, 600 + (index * 100));
         });
     } else {
         foodGroupsContainer.innerHTML = '<p style="color: var(--text-secondary);">No food groups selected</p>';
     }
 
-    // Display Protein Sources as Blue Tick Chips
+    // Display Protein Sources as Blue Tick Chips with staggered animation
     const proteinSourcesContainer = document.getElementById('proteinSourcesChips');
     proteinSourcesContainer.innerHTML = '';
     
     if (formData.proteinSources.length > 0) {
-        formData.proteinSources.forEach(source => {
-            const chip = createBlueTickChip(formatDisplayName(source));
-            proteinSourcesContainer.appendChild(chip);
+        formData.proteinSources.forEach((source, index) => {
+            setTimeout(() => {
+                const chip = createBlueTickChip(formatDisplayName(source));
+                proteinSourcesContainer.appendChild(chip);
+            }, 800 + (index * 100));
         });
     } else {
         proteinSourcesContainer.innerHTML = '<p style="color: var(--text-secondary);">No protein sources selected</p>';
     }
 
-    // Display uploaded photo using Base64
-    const resultPhoto = document.getElementById('resultPhoto');
-    if (formData.imageBase64) {
-        resultPhoto.src = formData.imageBase64;
-        resultPhoto.style.display = 'block';
-    }
+    // Display uploaded photo using Base64 with fade-in
+    setTimeout(() => {
+        const resultPhoto = document.getElementById('resultPhoto');
+        if (formData.imageBase64) {
+            resultPhoto.src = formData.imageBase64;
+            resultPhoto.style.display = 'block';
+            resultPhoto.style.opacity = '0';
+            resultPhoto.style.transition = 'opacity 0.5s ease-in';
+            setTimeout(() => {
+                resultPhoto.style.opacity = '1';
+            }, 100);
+        }
+    }, 1000);
 }
 
 // Create Blue Tick Chip
@@ -658,3 +741,4 @@ function resetForm() {
 window.addEventListener('beforeunload', () => {
     stopCamera();
 });
+
