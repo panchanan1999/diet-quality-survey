@@ -4,134 +4,117 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Daily Diet Quality Assessment</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="background-grad">
-    <!-- Background image context-driven: Health, nutrition, light/airy -->
-    <img src="https://images.unsplash.com/photo-1510626176961-4b57d4dc60f4?auto=format&fit=crop&w=1200&q=90"
-      alt="Healthy food background" class="bg-img"/>
-    <div class="bg-overlay"></div>
+  <!-- Animated background: blurred healthy food + animated gradient overlay -->
+  <div class="background-holder">
+    <img src="https://images.unsplash.com/photo-1510626176961-4b57d4dc60f4?auto=format&fit=crop&w=1200&q=80"
+         class="bg-image" alt="Healthy foods"/>
+    <div class="animated-overlay"></div>
   </div>
-  <main class="main-card">
+  <main class="main-glass-card animate-in">
 
-    <!-- OWNER INFO: Glass card with animation -->
-    <div class="owner-info-card animate-fade-in">
-      <div class="owner-avatar">
-        <svg width="44" height="44" viewBox="0 0 40 40">
-          <circle cx="20" cy="20" r="20" fill="url(#roseOwner)"/>
-          <path d="M20 13C22.2 13 24 14.8 24 17C24 19.2 22.2 21 20 21C17.8 21 16 19.2 16 17C16 14.8 17.8 13 20 13ZM20 23C23.3 23 28 24.7 28 28V29H12V28C12 24.7 16.7 23 20 23Z"
-             fill="white"/>
-          <defs>
-            <linearGradient id="roseOwner" x1="0" y1="0" x2="40" y2="40">
-              <stop stop-color="#FF7BAC"/><stop offset="1" stop-color="#FF3F5E"/>
-            </linearGradient>
-          </defs>
-        </svg>
+    <!-- OWNER INFO GLASS CARD -->
+    <div class="owner-banner glass-card animate-fade-in">
+      <div class="owner-icon pulse-in">
+        <svg width="42" height="42" viewBox="0 0 42 42"><circle cx="21" cy="21" r="21" fill="url(#roseOwner)"/><path d="M21 13C23.2 13 25 14.8 25 17C25 19.2 23.2 21 21 21C18.8 21 17 19.2 17 17C17 14.8 18.8 13 21 13ZM21 23C24.3 23 29 24.7 29 28V29H13V28C13 24.7 17.7 23 21 23Z" fill="#fff"/><defs><linearGradient id="roseOwner" x1="0" y1="0" x2="42" y2="42"><stop stop-color="#FF7BAC"/><stop offset="1" stop-color="#FF3F5E"/></linearGradient></defs></svg>
       </div>
-      <div class="owner-name animate-slide-up">Chandana M S</div>
-      <div class="owner-profile animate-fade-in-delay">Dietitian &amp; PhD Scholar</div>
+      <div class="owner-info-text">
+        <div class="owner-name slide-up-in">Chandana M S</div>
+        <div class="owner-profile fade-in-delay">Dietitian &amp; PhD Scholar</div>
+      </div>
     </div>
 
-    <!-- PAGE 1: Questions -->
-    <section class="page page-active" id="page1">
+    <!-- PAGE 1: QUESTIONS -->
+    <section class="form-page page-active" id="page1">
       <header>
-        <div class="header-star">
-          <svg width="42" height="42"><circle cx="21" cy="21" r="21" fill="url(#bluePurple)"/><path d="M21 10L24 16.5L31 17.5L25.5 22L27 29L21 25.5L15 29L16.5 22L11 17.5L18 16.5L21 10Z" fill="white"/><defs><linearGradient id="bluePurple" x1="0" y1="0" x2="42" y2="42"><stop stop-color="#667eea"/><stop offset="1" stop-color="#764ba2"/></linearGradient></defs></svg>
+        <div class="badge-flare">
+          <svg width="44" height="44"><circle cx="22" cy="22" r="22" fill="url(#badgeGradient)"/><path d="M22 10L25 16.5L32 17.5L26.5 22L28 29L22 25.5L16 29L17.5 22L12 17.5L19 16.5L22 10Z" fill="#fff"/><defs><linearGradient id="badgeGradient" x1="0" y1="0" x2="44" y2="44"><stop stop-color="#667eea"/><stop offset="1" stop-color="#764ba2"/></linearGradient></defs></svg>
         </div>
-        <h1 class="form-title animate-pop-in">Daily Diet Quality Assessment</h1>
-        <p class="form-subtitle">Complete details &amp; capture photo</p>
-        <div class="divider"></div>
+        <h1 class="gradient-title Jackslide">Daily Diet Quality Assessment</h1>
+        <p class="subtitle fade-in">Complete details &amp; capture photo</p>
       </header>
       <form id="questionnaireForm">
         <div class="section-block">
           <h3>Food Groups Consumed</h3>
           <p>Select all that apply:</p>
-          <div class="checkbox-group" id="foodGroups">
-            <label><input type="checkbox" value="Meat, Poultry, Fish, Eggs"><span class="option-card">Meat, Poultry, Fish, Eggs</span></label>
-            <label><input type="checkbox" value="Dairy or Beans"><span class="option-card">Dairy or Beans</span></label>
-            <label><input type="checkbox" value="Grains"><span class="option-card">Grains</span></label>
-            <label><input type="checkbox" value="Fruits"><span class="option-card">Fruits</span></label>
-            <label><input type="checkbox" value="Vegetables"><span class="option-card">Vegetables</span></label>
+          <div class="option-list" id="foodGroups">
+            <label class="option-box"><input type="checkbox" value="Meat, Poultry, Fish, Eggs"><span>Meat, Poultry, Fish, Eggs</span></label>
+            <label class="option-box"><input type="checkbox" value="Dairy or Beans"><span>Dairy or Beans</span></label>
+            <label class="option-box"><input type="checkbox" value="Grains"><span>Grains</span></label>
+            <label class="option-box"><input type="checkbox" value="Fruits"><span>Fruits</span></label>
+            <label class="option-box"><input type="checkbox" value="Vegetables"><span>Vegetables</span></label>
           </div>
           <span class="error-message" id="foodError"></span>
         </div>
         <div class="section-block">
           <h3>Protein Sources</h3>
           <p>Select all that apply:</p>
-          <div class="checkbox-group" id="proteinSources">
-            <label><input type="checkbox" value="Meat"><span class="option-card">Meat</span></label>
-            <label><input type="checkbox" value="Poultry"><span class="option-card">Poultry</span></label>
-            <label><input type="checkbox" value="Fish"><span class="option-card">Fish</span></label>
-            <label><input type="checkbox" value="Dairy"><span class="option-card">Dairy</span></label>
-            <label><input type="checkbox" value="Beans"><span class="option-card">Beans</span></label>
-            <label><input type="checkbox" value="Eggs"><span class="option-card">Eggs</span></label>
+          <div class="option-list" id="proteinSources">
+            <label class="option-box"><input type="checkbox" value="Meat"><span>Meat</span></label>
+            <label class="option-box"><input type="checkbox" value="Poultry"><span>Poultry</span></label>
+            <label class="option-box"><input type="checkbox" value="Fish"><span>Fish</span></label>
+            <label class="option-box"><input type="checkbox" value="Dairy"><span>Dairy</span></label>
+            <label class="option-box"><input type="checkbox" value="Beans"><span>Beans</span></label>
+            <label class="option-box"><input type="checkbox" value="Eggs"><span>Eggs</span></label>
           </div>
           <span class="error-message" id="proteinError"></span>
         </div>
         <div class="form-actions">
-          <button type="button" id="nextBtn" class="btn next-btn">Next</button>
+          <button type="button" id="nextBtn" class="btn next-btn">Next &rarr;</button>
         </div>
       </form>
     </section>
 
-    <!-- PAGE 2: Details & Camera -->
-    <section class="page" id="page2">
-      <div class="welcome-card">
+    <!-- PAGE 2: DETAILS & CAMERA -->
+    <section class="form-page" id="page2">
+      <div class="user-card glass-card slide-up-in">
         <div class="user-icon">
-          <svg width="44" height="44" viewBox="0 0 40 40">
+          <svg width="40" height="40" viewBox="0 0 40 40">
             <circle cx="20" cy="20" r="20" fill="url(#rose)"/>
-            <path d="M20 13C22.2 13 24 14.8 24 17C24 19.2 22.2 21 20 21C17.8 21 16 19.2 16 17C16 14.8 17.8 13 20 13ZM20 23C23.3 23 28 24.7 28 28V29H12V28C12 24.7 16.7 23 20 23Z"
-              fill="#fff"/>
-            <defs>
-              <linearGradient id="rose" x1="0" y1="0" x2="40" y2="40">
-                <stop stop-color="#FF7BAC"/><stop offset="1" stop-color="#FF3F5E"/>
-              </linearGradient>
-            </defs>
+            <path d="M20 13C22.2 13 24 14.8 24 17C24 19.2 22.2 21 20 21C17.8 21 16 19.2 16 17C16 14.8 17.8 13 20 13ZM20 23C23.3 23 28 24.7 28 28V29H12V28C12 24.7 16.7 23 20 23Z" fill="#fff"/>
+            <defs><linearGradient id="rose" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#FF7BAC"/><stop offset="1" stop-color="#FF3F5E"/></linearGradient></defs>
           </svg>
         </div>
-        <div class="user-title">Your Details</div>
-        <div class="user-desc">Dietitian &amp; PhD Scholar</div>
+        <div class="user-name">Enter your details</div>
       </div>
       <form id="detailsForm">
         <div class="form-group">
           <label for="userName">Name <span class="required">*</span></label>
-          <div class="input-wrapper">
-            <input type="text" id="userName" name="name" placeholder="Your Name" required autocomplete="name" />
-            <span class="input-focus-line"></span>
-          </div>
+          <input type="text" id="userName" name="name" placeholder="Your Name"/>
+          <span class="input-focus"></span>
           <span class="error-message" id="nameError"></span>
         </div>
         <div class="form-group">
-          <label for="userPhone">Phone Number (+91) <span class="required">*</span></label>
-          <div class="input-wrapper phone-wrapper">
+          <label for="userPhone">Phone Number (+91)<span class="required">*</span></label>
+          <div style="display:flex;align-items:center;">
             <span class="country-code">+91</span>
-            <input type="tel" id="userPhone" name="phone" maxlength="10" placeholder="10-digit mobile" required autocomplete="tel" />
-            <span class="input-focus-line"></span>
+            <input type="tel" id="userPhone" name="phone" maxlength="10" placeholder="10-digit mobile"/>
+            <span class="input-focus"></span>
           </div>
           <span class="error-message" id="phoneError"></span>
         </div>
-        <!-- Live Photo Capture Preview only -->
         <div class="form-group">
           <label>Capture Live Photo</label>
           <div class="camera-capture">
             <video id="video" autoplay playsinline></video>
             <canvas id="photoCanvas" style="display:none;"></canvas>
-            <button type="button" id="captureBtn" class="btn capture-btn">Capture</button>
+            <button type="button" id="captureBtn" class="btn camera-btn">Capture Photo</button>
           </div>
           <div id="photoPreview" class="photo-preview"></div>
         </div>
         <div class="form-actions">
-          <button type="button" id="backBtn" class="btn ter-btn">Back</button>
-          <button type="submit" id="submitBtn" class="btn primary-btn">
+          <button type="button" id="backBtn" class="btn tertiary-btn">&larr; Back</button>
+          <button type="submit" id="submitBtn" class="btn submit-btn">
             <span id="submitText">Submit</span>
-            <span id="submitLoader" class="loader" style="display: none;"></span>
+            <span id="submitLoader" class="loader" style="display:none;"></span>
           </button>
         </div>
       </form>
       <div id="successMessage" class="success-message" style="display: none;">
-        <div class="success-icon success-bounce">
+        <div class="success-icon">
           <svg width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="40" fill="url(#successGradient)"/><path d="M25 40L35 50L55 30" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="successGradient" x1="10" y1="10" x2="80" y2="80"><stop stop-color="#10B981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs></svg>
         </div>
         <h2>Submission Successful!</h2>
